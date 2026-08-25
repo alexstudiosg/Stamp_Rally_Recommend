@@ -4731,6 +4731,42 @@ body.viewer-open{
   font-weight:900 !important;
 }
 
+
+/* --- V71 flatten result cards for View All Promos / Help Me Choose --- */
+.promo-shell{
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  border-radius:0 !important;
+  overflow:visible !important;
+}
+
+.promo-shell .promo-visual-group{
+  padding:0 !important;
+  gap:0 !important;
+}
+
+.promo-shell .card-meta{
+  padding:10px 2px 0 !important;
+  background:transparent !important;
+}
+
+.promo-shell .card-top,
+.promo-shell .card-top-single{
+  margin-bottom:0 !important;
+}
+
+.promo-shell .outlet-line,
+.promo-shell .loc{
+  text-align:left !important;
+}
+
+@media(max-width:620px){
+  .promo-shell .card-meta{
+    padding:8px 2px 0 !important;
+  }
+}
+
 @media (max-width: 620px){
   .attached-actions{
     min-height:54px !important;
