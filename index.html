@@ -4098,7 +4098,7 @@ body.viewer-open{
   display:none !important;
 }
 
-/* Surprise tiles get their own action footer below the artwork. */
+/* Surprise tiles use the same footer action pattern as standard promo cards. */
 .surprise-slot.promo-slot{
   aspect-ratio:auto !important;
   overflow:visible !important;
@@ -4113,14 +4113,14 @@ body.viewer-open{
   position:relative;
   width:100%;
   aspect-ratio:.68;
-  border-radius:18px;
+  border-radius:18px 18px 0 0;
   overflow:hidden;
   background:#f4f4f4;
-  box-shadow:0 14px 34px rgba(0,0,0,.28);
+  box-shadow:none !important;
 }
 
 .surprise-slot.selected .surprise-art{
-  box-shadow:0 0 0 3px rgba(67,202,121,.23),0 14px 34px rgba(0,0,0,.28);
+  box-shadow:none !important;
 }
 
 .surprise-art img{
@@ -4128,25 +4128,6 @@ body.viewer-open{
   height:100% !important;
   object-fit:cover !important;
   display:block !important;
-}
-
-.surprise-store-location{
-  margin-top:7px;
-  min-height:42px !important;
-  background:#fff7ef !important;
-  border-color:#e6b890 !important;
-  box-shadow:0 4px 10px rgba(31,14,7,.16);
-}
-
-/* Keep + on artwork; it remains the fast save action. */
-.surprise-art .tile-add{
-  bottom:8px !important;
-  right:8px !important;
-}
-
-.surprise-art .tile-saved{
-  top:8px !important;
-  bottom:auto !important;
 }
 
 @media(max-width:620px){
@@ -4708,7 +4689,7 @@ body.viewer-open{
 
 .heart-plus-icon{
   position:relative !important;
-  width:40px !important;
+  width:34px !important;
   height:34px !important;
   display:inline-block !important;
 }
@@ -4718,30 +4699,30 @@ body.viewer-open{
   inset:0 !important;
   display:grid !important;
   place-items:center !important;
-  font-size:38px !important;
+  font-size:34px !important;
   line-height:1 !important;
   font-weight:900 !important;
-  color:#2f170e !important;
+  color:#b8b1ad !important;
 }
 
 .plus-glyph{
   position:absolute !important;
   left:50% !important;
-  top:52% !important;
+  top:51% !important;
   transform:translate(-50%,-50%) !important;
-  font-size:18px !important;
+  font-size:15px !important;
   line-height:1 !important;
   font-weight:1000 !important;
-  color:#2f170e !important;
+  color:#ffffff !important;
+  opacity:0 !important;
 }
 
 .attached-save.selected .heart-glyph{
-  color:#0f7a46 !important;
+  color:#df6235 !important;
 }
 
 .attached-save.selected .plus-glyph{
-  color:#ffffff !important;
-  font-size:15px !important;
+  opacity:1 !important;
 }
 
 .card-meta .outlet-line{
@@ -4767,14 +4748,14 @@ body.viewer-open{
     font-size:20px !important;
   }
   .heart-plus-icon{
-    width:36px !important;
-    height:31px !important;
+    width:32px !important;
+    height:32px !important;
   }
   .heart-glyph{
-    font-size:34px !important;
+    font-size:32px !important;
   }
   .plus-glyph{
-    font-size:16px !important;
+    font-size:14px !important;
   }
   .card-meta .outlet-line{
     font-size:16px !important;
@@ -5443,8 +5424,8 @@ function render(){
             </button>
             <button class="attached-save ${isAdded?"selected":""}" data-result-add="${p.id}" data-location-context="${state.location}" type="button" aria-label="${isAdded?"Remove from":"Add to"} My Save List">
               <span class="heart-plus-icon" aria-hidden="true">
-                <span class="heart-glyph">${isAdded?"♥":"♡"}</span>
-                <span class="plus-glyph">${isAdded?"✓":"+"}</span>
+                <span class="heart-glyph">♥</span>
+                <span class="plus-glyph">✓</span>
               </span>
             </button>
           </div>
@@ -5907,12 +5888,18 @@ function renderSurpriseGrid(){
       <div class="promo-visual-group surprise-visual-group">
         <div class="surprise-art promo-open" data-promo-open="${p.id}" data-location-context="${state.surpriseLocation || "all"}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
           <img src="${p.image}" alt="${p.brand} — ${p.name}">
-          <button class="tile-add ${isAdded ? "selected" : ""}" data-surprise-add="${p.id}" data-save-context="${state.surpriseLocation || "all"}" aria-label="${isAdded ? "Remove from" : "Add to"} My Save List">
-            ${isAdded ? "✓" : "+"}
-          </button>
-          ${isAdded ? `<div class="tile-saved">Added</div>` : ``}
         </div>
-        <button class="card-store-location attached-location surprise-store-location" data-surprise-location="${p.id}" data-location-context="${state.surpriseLocation || "all"}">Store Location</button>
+        <div class="attached-actions">
+          <button class="attached-location promo-open" data-promo-open="${p.id}" data-location-context="${state.surpriseLocation || "all"}" type="button" aria-label="Enlarge ${p.name}">
+            <span class="attached-location-label">Enlarge</span>
+          </button>
+          <button class="attached-save ${isAdded ? "selected" : ""}" data-surprise-add="${p.id}" data-save-context="${state.surpriseLocation || "all"}" type="button" aria-label="${isAdded ? "Remove from" : "Add to"} My Save List">
+            <span class="heart-plus-icon" aria-hidden="true">
+              <span class="heart-glyph">♥</span>
+              <span class="plus-glyph">✓</span>
+            </span>
+          </button>
+        </div>
       </div>
     </article>`;
   }).join("");
