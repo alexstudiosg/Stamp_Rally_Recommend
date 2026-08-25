@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f16614">
-<title>&Rewards — August Stamp Guide Prototype V32</title>
+<title>&Rewards — August Stamp Guide Prototype V37</title>
 <style>
 :root{
   --orange:#ff641d;
@@ -1525,6 +1525,192 @@ body.viewer-open{
   }
 }
 
+
+/* --- V33 Save List supports 3 automatic sets of 4 --- */
+.save-set-tabs{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  margin:2px 0 12px;
+}
+.save-set-tab{
+  appearance:none;
+  border:1px solid #ead3c1;
+  background:#fff;
+  color:#624332;
+  border-radius:14px;
+  min-height:48px;
+  padding:8px 8px 7px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  cursor:pointer;
+  font-weight:1000;
+}
+.save-set-tab small{
+  display:grid;
+  place-items:center;
+  min-width:30px;
+  height:22px;
+  padding:0 6px;
+  border-radius:999px;
+  background:#f5e7db;
+  color:#8a604a;
+  font-size:10px;
+  font-weight:1000;
+}
+.save-set-tab.active{
+  background:#fff0e5;
+  border-color:#ff7426;
+  color:#c84d14;
+  box-shadow:inset 0 0 0 1px #ff7426;
+}
+.save-set-tab.active small{
+  background:#ff7426;
+  color:#fff;
+}
+@media(max-width:620px){
+  .save-set-tabs{
+    gap:6px;
+    margin-bottom:9px;
+  }
+  .save-set-tab{
+    min-height:44px;
+    padding:7px 5px 6px;
+    border-radius:12px;
+    font-size:12px;
+    gap:4px;
+  }
+  .save-set-tab small{
+    min-width:27px;
+    height:20px;
+    font-size:9px;
+  }
+}
+
+
+/* --- V34 Shake Again results CTA --- */
+.shake-again-pill{
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  white-space:nowrap;
+}
+.shake-phone-icon-small{
+  width:24px !important;
+  height:24px !important;
+  color:#8a4e2d !important;
+}
+@media(max-width:620px){
+  .shake-again-pill{
+    gap:5px;
+    padding:7px 12px !important;
+  }
+  .shake-phone-icon-small{
+    width:21px !important;
+    height:21px !important;
+  }
+}
+
+
+/* --- V35 enlarge full-screen promo preview --- */
+.promo-viewer-stage{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:auto;
+}
+.promo-viewer-stage img{
+  width:min(94vw,560px) !important;
+  height:auto !important;
+  max-width:none !important;
+  max-height:94dvh !important;
+  object-fit:contain;
+  border-radius:18px;
+  box-shadow:0 24px 70px rgba(0,0,0,.42);
+}
+@media(max-width:620px){
+  .promo-viewer{
+    padding:max(4px,env(safe-area-inset-top)) 4px max(4px,env(safe-area-inset-bottom)) !important;
+  }
+  .promo-viewer-stage img{
+    width:calc(100vw - 12px) !important;
+    max-height:96dvh !important;
+    border-radius:12px;
+  }
+  .promo-viewer-close{
+    top:max(8px,env(safe-area-inset-top)) !important;
+    right:max(8px,env(safe-area-inset-right)) !important;
+  }
+}
+
+
+/* --- V36 stronger card shadow: 60% opacity, shorter throw --- */
+.card,
+.promo-slot,
+.plan-promo-slot{
+  box-shadow: 0 6px 14px rgba(44, 20, 8, 0.60) !important;
+}
+
+.card{
+  border-radius: 22px;
+}
+
+.card-img-wrap,
+.plan-promo-slot img,
+.promo-slot img{
+  display:block;
+}
+
+@media(max-width:620px){
+  .card,
+  .promo-slot,
+  .plan-promo-slot{
+    box-shadow: 0 5px 12px rgba(44, 20, 8, 0.60) !important;
+  }
+}
+
+
+/* --- V37 keep hero CTAs side by side on mobile --- */
+.hero-kv-actions{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:10px !important;
+  align-items:stretch;
+}
+.hero-kv-btn{
+  width:100% !important;
+  min-width:0 !important;
+}
+@media(max-width:620px){
+  .hero-kv-actions{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:8px !important;
+  }
+  .hero-kv-btn{
+    min-height:72px !important;
+    padding:10px 8px !important;
+    border-radius:18px !important;
+    font-size:16px !important;
+  }
+  .surprise-kv-btn{
+    gap:6px !important;
+  }
+  .shake-phone-icon{
+    width:30px !important;
+    height:30px !important;
+  }
+  .hero-kv-btn .btn-two-line,
+  .surprise-kv-btn .btn-two-line{
+    font-size:16px !important;
+    line-height:.98 !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1560,16 +1746,26 @@ body.viewer-open{
         <div class="eyebrow">Your matches</div>
         <h2>Stamp-worthy picks</h2>
       </div>
-      <button class="btn secondary try-again-pill" id="changeFilters">Try Again</button>
+      <button class="btn secondary try-again-pill shake-again-pill" id="changeFilters">
+          <span class="shake-phone-icon shake-phone-icon-small" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path d="M17 8h14a3 3 0 0 1 3 3v26a3 3 0 0 1-3 3H17a3 3 0 0 1-3-3V11a3 3 0 0 1 3-3Z" fill="none" stroke="currentColor" stroke-width="3"/>
+              <path d="M21 12h6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="24" cy="35.5" r="1.8" fill="currentColor"/>
+              <path d="M9 16c-2 2-3 4.5-3 8s1 6 3 8M39 16c2 2 3 4.5 3 8s-1 6-3 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span>Shake again</span>
+        </button>
     </div>
     <section class="cards" id="cards"></section>
   </section>
-  <div class="footer">Prototype v32 · Customer-facing Stamp Guide</div>
+  <div class="footer">Prototype v37 · Customer-facing Stamp Guide</div>
 </div>
 
 <div class="planner" id="plannerBar">
   <div class="planner-left">
-    <div class="planner-kicker">MY SAVE LIST</div>
+    <div class="planner-kicker" id="plannerKicker">MY SAVE LIST · SET 1</div>
     <div class="progress-dots" id="dots"></div>
     <div class="planner-sub" id="plannerSub">Choose 4 different concepts</div>
   </div>
@@ -1698,6 +1894,7 @@ body.viewer-open{
         <button class="close" id="closeDrawer" aria-label="Close">✕</button>
       </div>
 
+      <div class="save-set-tabs" id="saveSetTabs"></div>
       <div class="plan-card-grid" id="planList"></div>
 
       <div class="plan-actions">
@@ -1721,11 +1918,18 @@ const promos = [
 ];
 
 const savedPlan = (() => {
+  const slots = Array(12).fill(null);
   try {
     const raw = JSON.parse(localStorage.getItem("stampGuidePlan") || "[]");
-    return Array.isArray(raw) ? raw.filter(id => promos.some(p => p.id === id)).slice(0,4) : [];
+    if(!Array.isArray(raw)) return slots;
+
+    // Supports both the previous compact list and the new fixed 12-slot format.
+    raw.slice(0,12).forEach((id,index)=>{
+      if(id && promos.some(p=>p.id===id)) slots[index] = id;
+    });
+    return slots;
   } catch(e) {
-    return [];
+    return slots;
   }
 })();
 
@@ -1744,6 +1948,31 @@ function savePlan(){
     localStorage.setItem("stampGuidePlan", JSON.stringify(state.plan));
   }catch(e){}
 }
+
+function savedCount(){
+  return state.plan.filter(Boolean).length;
+}
+
+function savedCountForSet(setIndex){
+  return state.plan.slice(setIndex*4, setIndex*4+4).filter(Boolean).length;
+}
+
+function getTargetSetIndex(){
+  for(let setIndex=0; setIndex<3; setIndex++){
+    if(savedCountForSet(setIndex) < 4) return setIndex;
+  }
+  return 2;
+}
+
+function firstEmptySlotInSet(setIndex){
+  const start = setIndex * 4;
+  for(let i=start; i<start+4; i++){
+    if(!state.plan[i]) return i;
+  }
+  return -1;
+}
+
+let activeSaveSet = 0;
 
 const cards = document.getElementById("cards");
 const resultCount = document.getElementById("resultCount");
@@ -1854,39 +2083,78 @@ function showPlanToast(message="Saved to My Save List"){
 function togglePlan(id){
   const p = promos.find(x=>x.id===id);
   if(!p) return;
-  const wasAdded = state.plan.includes(id);
-  if(wasAdded){
-    state.plan = state.plan.filter(x=>x!==id);
-  }else{
-    const sameBrand = state.plan.map(pid=>promos.find(x=>x.id===pid)).find(x=>x && x.brand===p.brand);
-    if(sameBrand){
-      alert("You already have a pick from this concept. Choose a different concept for your next stamp.");
-      return;
-    }
-    if(state.plan.length>=4){
-      alert("Your Save List is already full. Remove one saved promo first.");
-      return;
-    }
-    state.plan.push(id);
+
+  const existingSlot = state.plan.indexOf(id);
+
+  // Existing saved promo: keep the previous toggle behaviour.
+  if(existingSlot >= 0){
+    state.plan[existingSlot] = null;
+    savePlan();
+    showPlanToast("Removed from My Save List");
+    render();
+    renderPlanDrawer();
+    if(document.getElementById("surpriseOverlay").classList.contains("open")) renderSurpriseGrid();
+    return;
   }
+
+  if(savedCount() >= 12){
+    alert("Your Save List already has 3 full sets. Remove a saved promo first.");
+    return;
+  }
+
+  const targetSet = getTargetSetIndex();
+  const setIds = state.plan.slice(targetSet*4, targetSet*4+4).filter(Boolean);
+  const sameBrand = setIds
+    .map(pid=>promos.find(x=>x.id===pid))
+    .find(x=>x && x.brand===p.brand);
+
+  if(sameBrand){
+    alert(`Set ${targetSet+1} already has a pick from this concept. Choose a different concept for this set.`);
+    return;
+  }
+
+  const targetSlot = firstEmptySlotInSet(targetSet);
+  if(targetSlot < 0) return;
+
+  state.plan[targetSlot] = id;
   savePlan();
-  if(!wasAdded) showPlanToast("✓ Saved to My Save List");
-  else showPlanToast("Removed from My Save List");
+
+  const setNow = savedCountForSet(targetSet);
+  if(setNow === 4 && targetSet < 2){
+    showPlanToast(`✓ Set ${targetSet+1} complete · Set ${targetSet+2} is ready`);
+  }else{
+    showPlanToast(`✓ Saved to Set ${targetSet+1}`);
+  }
+
   render();
   renderPlanDrawer();
   if(document.getElementById("surpriseOverlay").classList.contains("open")) renderSurpriseGrid();
 }
 
 function renderPlanner(){
+  const total = savedCount();
   const bar = document.getElementById("plannerBar");
-  bar.style.display = state.plan.length ? "flex" : "none";
-  const dots = document.getElementById("dots");
-  dots.innerHTML = [0,1,2,3].map(i=>`<div class="dot ${i<state.plan.length?"done":""}">${i<state.plan.length?"✓":i+1}</div>`).join("");
-  document.getElementById("plannerSub").textContent =
-    state.plan.length===4 ? "4 of 4 promos saved" :
-    `${state.plan.length} of 4 promos saved`;
-}
+  bar.style.display = total ? "flex" : "none";
 
+  const setIndex = getTargetSetIndex();
+  const setSaved = savedCountForSet(setIndex);
+
+  const dots = document.getElementById("dots");
+  dots.innerHTML = [0,1,2,3].map(i=>
+    `<div class="dot ${i<setSaved?"done":""}">${i<setSaved?"✓":i+1}</div>`
+  ).join("");
+
+  document.getElementById("plannerKicker").textContent = `MY SAVE LIST · SET ${setIndex+1}`;
+
+  if(total >= 12){
+    document.getElementById("plannerSub").textContent = "3 sets complete · 12 promos saved";
+  }else if(setSaved === 4){
+    document.getElementById("plannerSub").textContent = `Set ${setIndex+1} complete`;
+  }else{
+    document.getElementById("plannerSub").textContent =
+      `Set ${setIndex+1}: ${setSaved} of 4 saved · ${total} total`;
+  }
+}
 
 let pendingConfirmAction = null;
 
@@ -1907,13 +2175,35 @@ function closeConfirmation(){
 }
 
 function renderPlanDrawer(){
+  const tabs = document.getElementById("saveSetTabs");
   const grid = document.getElementById("planList");
-  const slots = Array.from({length:4}, (_,i)=> {
-    const id = state.plan[i];
+
+  activeSaveSet = Math.max(0, Math.min(2, activeSaveSet));
+
+  tabs.innerHTML = [0,1,2].map(setIndex=>{
+    const count = savedCountForSet(setIndex);
+    return `<button class="save-set-tab ${activeSaveSet===setIndex?"active":""}" data-save-set="${setIndex}">
+      <span>Set ${setIndex+1}</span>
+      <small>${count}/4</small>
+    </button>`;
+  }).join("");
+
+  document.querySelectorAll("[data-save-set]").forEach(btn=>{
+    btn.onclick=()=>{
+      activeSaveSet = Number(btn.dataset.saveSet);
+      renderPlanDrawer();
+    };
+  });
+
+  const base = activeSaveSet * 4;
+  const slots = Array.from({length:4}, (_,i)=>{
+    const id = state.plan[base+i];
     return id ? promos.find(p=>p.id===id) : null;
   });
 
   grid.innerHTML = slots.map((p,index)=>{
+    const absoluteSlot = base + index;
+
     if(!p){
       return `<article class="plan-card-slot plan-empty-slot">
         <div class="plan-empty-inner">
@@ -1926,26 +2216,34 @@ function renderPlanDrawer(){
     return `<article class="plan-card-slot plan-promo-slot promo-open" data-promo-open="${p.id}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
       <img src="${p.image}" alt="${p.brand} — ${p.name}">
       <div class="plan-slot-number">${index+1}</div>
-      <button class="plan-remove-x" data-remove="${p.id}" aria-label="Remove ${p.name}">✕</button>
+      <button class="plan-remove-x" data-remove-slot="${absoluteSlot}" aria-label="Remove ${p.name}">✕</button>
     </article>`;
   }).join("");
 
-  document.querySelectorAll("[data-remove]").forEach(b=>{
+  document.querySelectorAll("[data-remove-slot]").forEach(b=>{
     b.onclick=(e)=>{
       e.stopPropagation();
-      const promo = promos.find(p=>p.id===b.dataset.remove);
+      const slotIndex = Number(b.dataset.removeSlot);
+      const promoId = state.plan[slotIndex];
+      const promo = promos.find(p=>p.id===promoId);
+
       askConfirmation(
-        promo ? `Remove "${promo.name}" from your Save List?` : "Remove this promo from your Save List?",
+        promo ? `Remove "${promo.name}" from Set ${Math.floor(slotIndex/4)+1}?` : "Remove this promo from your Save List?",
         ()=>{
-          togglePlan(b.dataset.remove);
+          state.plan[slotIndex] = null;
+          savePlan();
+          render();
           renderPlanDrawer();
+          showPlanToast("Removed from My Save List");
           closeConfirmation();
         }
       );
     };
   });
+
   bindPromoOpeners();
 }
+
 function weightedShuffle(list, count=4){
   const pool = [...list];
   const chosen = [];
@@ -1971,16 +2269,19 @@ function weightedShuffle(list, count=4){
 
 
 function confirmResetPlanForNewPicks(){
-  if(state.plan.length < 4) return true;
+  if(savedCount() < 12) return true;
 
-  const reset = window.confirm("Your Save List is already full.\n\nDo you want to clear your saved list and try again?");
+  const reset = window.confirm(
+    "Your Save List already has 3 full sets (12 promos).\n\nDo you want to clear all saved sets and try again?"
+  );
   if(!reset) return false;
 
-  state.plan = [];
+  state.plan = Array(12).fill(null);
+  activeSaveSet = 0;
   savePlan();
   render();
   renderPlanDrawer();
-  showPlanToast("Saved list cleared");
+  showPlanToast("My Save List cleared");
   return true;
 }
 
@@ -2121,11 +2422,13 @@ document.querySelectorAll("#needs .pill").forEach(btn=>{
 
 document.getElementById("openFinder").onclick=openFinder;
 document.getElementById("quickSurprise").onclick=async()=>{
-  if(state.plan.length >= 4 && !confirmResetPlanForNewPicks()) return;
   await enableMotion();
   surpriseFour();
 };
-document.getElementById("changeFilters").onclick=openFinder;
+document.getElementById("changeFilters").onclick=async()=>{
+  await enableMotion();
+  surpriseFour();
+};
 document.getElementById("closeFinder").onclick=closeFinder;
 document.getElementById("finderOverlay").onclick=e=>{ if(e.target.id==="finderOverlay") closeFinder(); };
 
@@ -2142,15 +2445,20 @@ document.getElementById("closeSurprise").onclick=()=>document.getElementById("su
 document.getElementById("surpriseCloseBtn").onclick=()=>document.getElementById("surpriseOverlay").classList.remove("open");
 document.getElementById("surpriseOverlay").onclick=e=>{ if(e.target.id==="surpriseOverlay") e.currentTarget.classList.remove("open"); };
 
-function openDrawer(){ renderPlanDrawer(); document.getElementById("drawer").classList.add("open"); }
+function openDrawer(){
+  activeSaveSet = getTargetSetIndex();
+  renderPlanDrawer();
+  document.getElementById("drawer").classList.add("open");
+}
 document.getElementById("viewPlan").onclick=openDrawer;
 document.getElementById("closeDrawer").onclick=()=>document.getElementById("drawer").classList.remove("open");
 document.getElementById("closePlanBtn").onclick=()=>document.getElementById("drawer").classList.remove("open");
 document.getElementById("drawer").onclick=e=>{ if(e.target.id==="drawer") e.currentTarget.classList.remove("open"); };
 document.getElementById("clearPlan").onclick=()=>{
-  if(!state.plan.length) return;
-  askConfirmation("Clear all saved promos from your Save List?", ()=>{
-    state.plan = [];
+  if(!savedCount()) return;
+  askConfirmation("Clear all 3 sets from your Save List?", ()=>{
+    state.plan = Array(12).fill(null);
+    activeSaveSet = 0;
     savePlan();
     render();
     renderPlanDrawer();
