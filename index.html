@@ -5046,6 +5046,57 @@ body.viewer-open{
   }
 }
 
+
+/* --- V76 iPhone keyboard-safe Store Locator search --- */
+.store-locator-overlay{
+  top:var(--visible-viewport-top,0px) !important;
+  bottom:auto !important;
+  left:0 !important;
+  right:0 !important;
+  height:var(--visible-viewport-height,100dvh) !important;
+  min-height:0 !important;
+}
+
+/* Keep the sheet entirely inside the visible area above the iOS keyboard. */
+.store-locator-overlay .store-locator-sheet{
+  max-height:calc(var(--visible-viewport-height,100dvh) - 8px) !important;
+}
+
+/* Search must remain readable and iOS must not auto-zoom the page on focus. */
+@media(max-width:620px){
+  .store-locator-overlay .store-locator-sheet{
+    height:calc(var(--visible-viewport-height,100dvh) - 8px) !important;
+  }
+
+  .store-search{
+    font-size:16px !important;
+  }
+
+  .store-locator-overlay.keyboard-open .store-locator-head{
+    padding-top:12px !important;
+    padding-bottom:7px !important;
+  }
+
+  .store-locator-overlay.keyboard-open .store-locator-kicker,
+  .store-locator-overlay.keyboard-open .store-locator-sub{
+    display:none !important;
+  }
+
+  .store-locator-overlay.keyboard-open .store-locator-title{
+    margin-top:0 !important;
+    font-size:19px !important;
+  }
+
+  .store-locator-overlay.keyboard-open .store-search-wrap{
+    margin-top:2px !important;
+    margin-bottom:8px !important;
+  }
+
+  .store-locator-overlay.keyboard-open .store-locator-tabs{
+    margin-bottom:8px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -6260,7 +6311,9 @@ document.querySelectorAll("#needs .pill").forEach(btn=>{
 function syncVisibleViewport(){
   const vv = window.visualViewport;
   const h = vv ? vv.height : window.innerHeight;
+  const top = vv ? vv.offsetTop : 0;
   document.documentElement.style.setProperty("--visible-viewport-height", `${Math.round(h)}px`);
+  document.documentElement.style.setProperty("--visible-viewport-top", `${Math.round(top)}px`);
 }
 syncVisibleViewport();
 window.addEventListener("resize", syncVisibleViewport, {passive:true});
@@ -6609,6 +6662,22 @@ document.querySelectorAll("[data-store-view]").forEach(btn=>{
 
 const storeSearch = document.getElementById("storeSearch");
 const storeSearchClear = document.getElementById("storeSearchClear");
+
+storeSearch.addEventListener("focus",()=>{
+  const overlay = document.getElementById("storeLocatorOverlay");
+  overlay.classList.add("keyboard-open");
+  syncVisibleViewport();
+  setTimeout(()=>{
+    syncVisibleViewport();
+    storeSearch.scrollIntoView({block:"nearest", inline:"nearest"});
+  }, 120);
+});
+
+storeSearch.addEventListener("blur",()=>{
+  const overlay = document.getElementById("storeLocatorOverlay");
+  overlay.classList.remove("keyboard-open");
+  setTimeout(syncVisibleViewport, 80);
+});
 
 storeSearch.addEventListener("input",()=>{
   storeLocatorState.query = storeSearch.value;
