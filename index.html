@@ -2017,6 +2017,117 @@ body.viewer-open{
   }
 }
 
+
+/* --- V44 mobile-browser-safe surprise screen --- */
+.surprise-overlay{
+  top:0 !important;
+  right:0 !important;
+  bottom:auto !important;
+  left:0 !important;
+  height:var(--visible-viewport-height, 100dvh) !important;
+  max-height:var(--visible-viewport-height, 100dvh) !important;
+  box-sizing:border-box;
+  overflow:hidden !important;
+}
+
+.surprise-stage{
+  display:flex !important;
+  flex-direction:column !important;
+  width:min(760px,100%) !important;
+  height:100% !important;
+  max-height:100% !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+  box-sizing:border-box;
+}
+
+.surprise-scroll-area{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:12px;
+}
+
+.surprise-bottom{
+  position:relative !important;
+  left:auto !important;
+  right:auto !important;
+  bottom:auto !important;
+  flex:0 0 auto;
+  margin-top:0 !important;
+  padding:10px 0 calc(16px + env(safe-area-inset-bottom)) !important;
+  background:#2a140b !important;
+  box-shadow:0 -8px 22px rgba(20,8,3,.32);
+  z-index:20;
+}
+
+@media(max-width:620px){
+  .surprise-overlay{
+    padding:
+      max(6px, env(safe-area-inset-top))
+      8px
+      0 !important;
+    align-items:flex-start !important;
+    justify-content:center !important;
+  }
+
+  .surprise-stage{
+    padding:42px 0 0 !important;
+  }
+
+  .surprise-scroll-area{
+    padding:0 0 10px;
+  }
+
+  .surprise-instruction{
+    margin-left:2px !important;
+    margin-right:2px !important;
+  }
+
+  .fixed-four-grid{
+    padding:0 2px;
+  }
+
+  .surprise-bottom{
+    gap:8px !important;
+    padding:
+      10px
+      2px
+      calc(18px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .surprise-bottom-btn{
+    min-height:50px !important;
+  }
+}
+
+/* Extra protection for very short visible browser windows. */
+@media(max-width:620px) and (max-height:720px){
+  .surprise-stage{
+    padding-top:38px !important;
+  }
+  .surprise-instruction{
+    padding:7px 9px !important;
+    margin-bottom:6px !important;
+  }
+  .surprise-title{
+    font-size:18px !important;
+  }
+  .surprise-line{
+    font-size:10px !important;
+  }
+  .fixed-four-grid{
+    gap:6px !important;
+  }
+  .surprise-bottom{
+    padding-top:8px !important;
+    padding-bottom:calc(16px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2160,12 +2271,14 @@ body.viewer-open{
   <div class="surprise-stage">
     <button class="surprise-x" id="closeSurprise" aria-label="Close">✕</button>
 
-    <div class="surprise-instruction">
-      <div class="surprise-title">I want to try these!</div>
-      <div class="surprise-line">Tap <span class="inline-plus">+</span> to save your picks.</div>
-      <div class="surprise-line">Shake again to see the next 4 items.</div>
+    <div class="surprise-scroll-area">
+      <div class="surprise-instruction">
+        <div class="surprise-title">I want to try these!</div>
+        <div class="surprise-line">Tap <span class="inline-plus">+</span> to save your picks.</div>
+        <div class="surprise-line">Shake again to see the next 4 items.</div>
+      </div>
+      <div class="surprise-grid fixed-four-grid" id="surpriseGrid"></div>
     </div>
-    <div class="surprise-grid fixed-four-grid" id="surpriseGrid"></div>
 
     <div class="surprise-bottom">
       <button class="btn secondary surprise-bottom-btn" id="surpriseCloseBtn">Close</button>
@@ -2784,6 +2897,19 @@ document.querySelectorAll("#needs .pill").forEach(btn=>{
     btn.classList.add("active");
   };
 });
+
+
+function syncVisibleViewport(){
+  const vv = window.visualViewport;
+  const h = vv ? vv.height : window.innerHeight;
+  document.documentElement.style.setProperty("--visible-viewport-height", `${Math.round(h)}px`);
+}
+syncVisibleViewport();
+window.addEventListener("resize", syncVisibleViewport, {passive:true});
+if(window.visualViewport){
+  window.visualViewport.addEventListener("resize", syncVisibleViewport, {passive:true});
+  window.visualViewport.addEventListener("scroll", syncVisibleViewport, {passive:true});
+}
 
 document.getElementById("openFinder").onclick=openFinder;
 document.getElementById("quickSurprise").onclick=async()=>{
