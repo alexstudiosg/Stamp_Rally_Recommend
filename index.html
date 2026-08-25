@@ -4645,6 +4645,142 @@ body.viewer-open{
   }
 }
 
+
+/* --- V69 result-card footer tidy-up: no save icon over artwork --- */
+.attached-actions{
+  display:flex !important;
+  align-items:stretch !important;
+  width:100% !important;
+  min-height:58px !important;
+  margin:0 !important;
+  border:1px solid #dfc2ad !important;
+  border-top:0 !important;
+  border-radius:0 0 18px 18px !important;
+  background:#fff7ef !important;
+  overflow:hidden !important;
+  box-shadow:none !important;
+}
+
+.attached-location{
+  flex:1 1 auto !important;
+  min-height:58px !important;
+  margin:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  color:#5d3422 !important;
+  box-shadow:none !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding:10px 14px !important;
+}
+
+.attached-location-label{
+  display:block !important;
+  font-size:clamp(18px, 2.1vw, 22px) !important;
+  line-height:1.05 !important;
+  font-weight:1000 !important;
+  letter-spacing:.01em !important;
+  white-space:nowrap !important;
+}
+
+.attached-save{
+  flex:0 0 82px !important;
+  min-width:82px !important;
+  min-height:58px !important;
+  margin:0 !important;
+  border:0 !important;
+  border-left:1px solid #dfc2ad !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  color:#2f170e !important;
+  box-shadow:none !important;
+  display:grid !important;
+  place-items:center !important;
+  padding:0 !important;
+}
+
+.attached-save:hover,
+.attached-location:hover{
+  filter:brightness(.98) !important;
+}
+
+.heart-plus-icon{
+  position:relative !important;
+  width:40px !important;
+  height:34px !important;
+  display:inline-block !important;
+}
+
+.heart-glyph{
+  position:absolute !important;
+  inset:0 !important;
+  display:grid !important;
+  place-items:center !important;
+  font-size:38px !important;
+  line-height:1 !important;
+  font-weight:900 !important;
+  color:#2f170e !important;
+}
+
+.plus-glyph{
+  position:absolute !important;
+  left:50% !important;
+  top:52% !important;
+  transform:translate(-50%,-50%) !important;
+  font-size:18px !important;
+  line-height:1 !important;
+  font-weight:1000 !important;
+  color:#2f170e !important;
+}
+
+.attached-save.selected .heart-glyph{
+  color:#0f7a46 !important;
+}
+
+.attached-save.selected .plus-glyph{
+  color:#ffffff !important;
+  font-size:15px !important;
+}
+
+.card-meta .outlet-line{
+  font-size:clamp(16px, 1.65vw, 20px) !important;
+  line-height:1.2 !important;
+  font-weight:900 !important;
+}
+
+@media (max-width: 620px){
+  .attached-actions{
+    min-height:54px !important;
+    border-radius:0 0 16px 16px !important;
+  }
+  .attached-location,
+  .attached-save{
+    min-height:54px !important;
+  }
+  .attached-save{
+    flex-basis:74px !important;
+    min-width:74px !important;
+  }
+  .attached-location-label{
+    font-size:20px !important;
+  }
+  .heart-plus-icon{
+    width:36px !important;
+    height:31px !important;
+  }
+  .heart-glyph{
+    font-size:34px !important;
+  }
+  .plus-glyph{
+    font-size:16px !important;
+  }
+  .card-meta .outlet-line{
+    font-size:16px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -5300,12 +5436,18 @@ function render(){
         <div class="promo-visual-group">
           <div class="card-img-wrap promo-open" data-promo-open="${p.id}" data-location-context="${state.location}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
             <img class="card-img" src="${p.image}" alt="${p.brand} — ${p.name}">
-            <button class="tile-add ${isAdded?"selected":""}" data-result-add="${p.id}" data-save-context="${state.location}" aria-label="${isAdded?"Remove from":"Add to"} My Save List">
-              ${isAdded?"✓":"+"}
+            </div>
+          <div class="attached-actions">
+            <button class="attached-location promo-open" data-promo-open="${p.id}" data-location-context="${state.location}" type="button" aria-label="Enlarge ${p.name}">
+              <span class="attached-location-label">Enlarge</span>
             </button>
-            ${isAdded ? `<div class="tile-saved">Added</div>` : ``}
+            <button class="attached-save ${isAdded?"selected":""}" data-result-add="${p.id}" data-location-context="${state.location}" type="button" aria-label="${isAdded?"Remove from":"Add to"} My Save List">
+              <span class="heart-plus-icon" aria-hidden="true">
+                <span class="heart-glyph">${isAdded?"♥":"♡"}</span>
+                <span class="plus-glyph">${isAdded?"✓":"+"}</span>
+              </span>
+            </button>
           </div>
-          <button class="card-store-location attached-location" data-card-location="${p.id}" data-location-context="${state.location}">Store Location</button>
         </div>
         <div class="card-meta">
           <div class="card-top card-top-single">
