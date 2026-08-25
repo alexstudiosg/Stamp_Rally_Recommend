@@ -4227,6 +4227,405 @@ body.viewer-open{
   }
 }
 
+
+/* =========================================================
+   V67: Clear promo-card ownership + easier mobile reading
+   ========================================================= */
+
+/* A promo image and its Store Location control are one visual object. */
+.promo-visual-group{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  filter:drop-shadow(0 6px 10px rgba(44,20,8,.24));
+}
+
+.card-img-wrap,
+.surprise-art,
+.plan-art{
+  position:relative;
+  overflow:hidden;
+  border-radius:18px 18px 0 0 !important;
+  box-shadow:none !important;
+}
+
+.card-img-wrap{
+  padding:12px 12px 0 !important;
+  background:#efedea;
+}
+.card-img-wrap .card-img{
+  border-radius:16px 16px 0 0 !important;
+}
+
+.attached-location{
+  width:100% !important;
+  min-height:46px !important;
+  margin:0 !important;
+  border:1px solid #dfc2ad !important;
+  border-top:0 !important;
+  border-radius:0 0 16px 16px !important;
+  background:#fff7ef !important;
+  color:#5d3422 !important;
+  box-shadow:none !important;
+  font-size:16px !important;
+  font-weight:1000 !important;
+  line-height:1 !important;
+  letter-spacing:.01em;
+}
+
+/* Save uses only the familiar circular (+) / check control on the artwork. */
+.card-img-wrap .tile-add,
+.surprise-art .tile-add{
+  position:absolute !important;
+  right:9px !important;
+  bottom:9px !important;
+  z-index:6 !important;
+  width:46px !important;
+  height:46px !important;
+  min-width:46px !important;
+  min-height:46px !important;
+  border-radius:50% !important;
+  border:3px solid rgba(255,255,255,.96) !important;
+  background:#24130c !important;
+  color:#fff !important;
+  display:grid !important;
+  place-items:center !important;
+  padding:0 !important;
+  font-size:28px !important;
+  line-height:1 !important;
+  font-weight:1000 !important;
+  box-shadow:0 6px 14px rgba(0,0,0,.34) !important;
+}
+.card-img-wrap .tile-add.selected,
+.surprise-art .tile-add.selected{
+  background:#168247 !important;
+}
+
+.card-img-wrap .tile-saved,
+.surprise-art .tile-saved{
+  position:absolute !important;
+  top:9px !important;
+  right:9px !important;
+  z-index:5 !important;
+  padding:6px 9px !important;
+  border-radius:999px !important;
+  background:#168247 !important;
+  color:white !important;
+  font-size:11px !important;
+  font-weight:1000 !important;
+}
+
+/* Normal result cards: no separate Add to Save List bar. */
+.card-action-stack,
+.add{
+  display:none !important;
+}
+.promo-shell{
+  overflow:visible !important;
+}
+.promo-shell .card-meta{
+  padding-top:10px !important;
+}
+.promo-shell .promo-visual-group{
+  padding:12px 12px 0;
+}
+.promo-shell .promo-visual-group .card-img-wrap{
+  padding:0 !important;
+}
+.promo-shell .promo-visual-group .attached-location{
+  width:100% !important;
+}
+
+/* Surprise card: one clean card with attached footer. */
+.surprise-slot.promo-slot{
+  background:transparent !important;
+  filter:none !important;
+}
+.surprise-visual-group{
+  width:100%;
+}
+.surprise-art{
+  aspect-ratio:.68;
+}
+.surprise-store-location{
+  min-height:44px !important;
+}
+
+/* My Save List gets the same attached location footer. */
+.plan-card-slot.plan-promo-slot{
+  aspect-ratio:auto !important;
+  overflow:visible !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.plan-visual-group{
+  width:100%;
+}
+.plan-art{
+  width:100%;
+  aspect-ratio:.68;
+  background:#f2ece7;
+}
+.plan-art img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  display:block !important;
+}
+.plan-store-location{
+  min-height:42px !important;
+}
+
+/* Full-screen viewer save control. */
+.promo-viewer-save{
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  z-index:20;
+  min-width:54px;
+  height:54px;
+  padding:0;
+  border:3px solid rgba(255,255,255,.96);
+  border-radius:999px;
+  background:#21120c;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  box-shadow:0 7px 18px rgba(0,0,0,.38);
+  font-weight:1000;
+  cursor:pointer;
+  transition:padding .15s ease,min-width .15s ease,background .15s ease;
+}
+.promo-viewer-save-icon{
+  min-width:25px;
+  text-align:center;
+  font-size:31px;
+  line-height:1;
+}
+.promo-viewer-save-label{
+  display:none;
+  font-size:16px;
+  line-height:1;
+}
+.promo-viewer-save.added{
+  min-width:104px;
+  padding:0 15px;
+  background:#168247;
+}
+.promo-viewer-save.added .promo-viewer-save-label{
+  display:inline;
+}
+
+/* Store details must be genuinely readable on phones. */
+.promo-location-kicker{
+  font-size:12px !important;
+}
+.promo-location-title{
+  font-size:22px !important;
+}
+.promo-location-sub{
+  font-size:15px !important;
+}
+.promo-location-row{
+  padding:14px !important;
+  gap:12px !important;
+}
+.promo-location-mall{
+  font-size:16px !important;
+  line-height:1.2 !important;
+}
+.promo-location-address{
+  margin-top:5px !important;
+  font-size:13px !important;
+  line-height:1.4 !important;
+}
+.promo-location-distance{
+  margin-top:6px !important;
+  font-size:12px !important;
+}
+.promo-location-directions{
+  min-height:42px !important;
+  padding:0 12px !important;
+  font-size:13px !important;
+}
+.promo-view-all{
+  min-height:48px !important;
+  font-size:14px !important;
+}
+.promo-location-not-found{
+  font-size:13px !important;
+}
+
+/* Main Store Locator list readability. */
+.store-locator-title{
+  font-size:26px !important;
+}
+.store-locator-sub{
+  font-size:14px !important;
+}
+.store-search{
+  font-size:16px !important;
+}
+.store-locator-tab{
+  font-size:15px !important;
+}
+.near-me-text strong{
+  font-size:16px !important;
+}
+.near-me-text span{
+  font-size:13px !important;
+}
+.near-me-btn{
+  font-size:15px !important;
+}
+.near-me-status{
+  font-size:13px !important;
+}
+.store-card-brand{
+  font-size:17px !important;
+}
+.store-card-mall{
+  font-size:15px !important;
+}
+.store-card-address{
+  font-size:13px !important;
+  line-height:1.4 !important;
+}
+.store-card-hours{
+  font-size:13px !important;
+  line-height:1.4 !important;
+}
+.store-card-distance{
+  font-size:12px !important;
+}
+.store-action{
+  min-height:44px !important;
+  font-size:15px !important;
+}
+.store-group-title{
+  font-size:16px !important;
+}
+.store-group-count{
+  font-size:11px !important;
+}
+
+/* iPhone / mobile tuning */
+@media(max-width:620px){
+  .attached-location{
+    min-height:44px !important;
+    font-size:15px !important;
+  }
+
+  .card-img-wrap .tile-add,
+  .surprise-art .tile-add{
+    width:44px !important;
+    height:44px !important;
+    min-width:44px !important;
+    min-height:44px !important;
+    font-size:27px !important;
+  }
+
+  .promo-viewer-save{
+    right:10px;
+    bottom:10px;
+    min-width:52px;
+    height:52px;
+  }
+  .promo-viewer-save-icon{
+    font-size:29px;
+  }
+  .promo-viewer-save.added{
+    min-width:100px;
+  }
+  .promo-viewer-save-label{
+    font-size:15px;
+  }
+
+  .promo-location-panel{
+    padding:15px !important;
+  }
+  .promo-location-kicker{
+    font-size:11px !important;
+  }
+  .promo-location-title{
+    font-size:21px !important;
+  }
+  .promo-location-sub{
+    font-size:14px !important;
+  }
+  .promo-location-row{
+    padding:13px !important;
+    grid-template-columns:minmax(0,1fr) auto !important;
+  }
+  .promo-location-mall{
+    font-size:15px !important;
+  }
+  .promo-location-address{
+    font-size:12.5px !important;
+  }
+  .promo-location-distance{
+    font-size:12px !important;
+  }
+  .promo-location-directions{
+    min-height:42px !important;
+    padding:0 10px !important;
+    font-size:12.5px !important;
+  }
+
+  .store-locator-title{
+    font-size:23px !important;
+  }
+  .store-locator-sub{
+    font-size:13px !important;
+  }
+  .store-search{
+    height:48px !important;
+    font-size:15px !important;
+  }
+  .store-locator-tab{
+    min-height:42px !important;
+    font-size:14px !important;
+  }
+  .near-me-text strong{
+    font-size:15px !important;
+  }
+  .near-me-text span{
+    font-size:12px !important;
+  }
+  .near-me-btn{
+    min-height:42px !important;
+    font-size:14px !important;
+  }
+  .near-me-status{
+    font-size:12.5px !important;
+  }
+  .store-card-brand{
+    font-size:16px !important;
+  }
+  .store-card-mall{
+    font-size:14.5px !important;
+  }
+  .store-card-address{
+    font-size:12.5px !important;
+  }
+  .store-card-hours{
+    font-size:12.5px !important;
+  }
+  .store-card-actions{
+    gap:8px !important;
+  }
+  .store-action{
+    min-height:42px !important;
+    font-size:14px !important;
+  }
+  .store-group-title{
+    font-size:15px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -4489,6 +4888,10 @@ body.viewer-open{
       <div class="promo-viewer-frame">
         <img id="promoViewerImg" alt="" draggable="false">
         <button class="promo-viewer-close" id="promoViewerClose" aria-label="Close promo">✕</button>
+        <button class="promo-viewer-save" id="promoViewerSave" type="button" aria-label="Add promo to My Save List">
+          <span class="promo-viewer-save-icon" id="promoViewerSaveIcon">+</span>
+          <span class="promo-viewer-save-label" id="promoViewerSaveLabel"></span>
+        </button>
       </div>
       <div class="promo-location-panel" id="promoLocationPanel"></div>
     </div>
@@ -4805,6 +5208,22 @@ function renderPromoLocationPanel(promo, context){
   });
 }
 
+let currentPromoViewerId = null;
+let currentPromoViewerContext = "all";
+
+function refreshPromoViewerSaveState(){
+  const btn = document.getElementById("promoViewerSave");
+  const icon = document.getElementById("promoViewerSaveIcon");
+  const label = document.getElementById("promoViewerSaveLabel");
+  if(!btn || !icon || !label || !currentPromoViewerId) return;
+
+  const isAdded = state.plan.includes(currentPromoViewerId);
+  btn.classList.toggle("added",isAdded);
+  icon.textContent = isAdded ? "✓" : "+";
+  label.textContent = isAdded ? "Added" : "";
+  btn.setAttribute("aria-label",isAdded ? "Remove promo from My Save List" : "Add promo to My Save List");
+}
+
 function openPromoViewer(id, locationContext="all"){
   const promo = promos.find(p=>p.id===id);
   if(!promo) return;
@@ -4813,12 +5232,16 @@ function openPromoViewer(id, locationContext="all"){
     ? locationContext
     : savedPromoContext(id);
 
+  currentPromoViewerId = id;
+  currentPromoViewerContext = context;
+
   const viewer = document.getElementById("promoViewer");
   const img = document.getElementById("promoViewerImg");
   img.src = promo.image;
   img.alt = `${promo.brand} — ${promo.name}`;
 
   renderPromoLocationPanel(promo, context);
+  refreshPromoViewerSaveState();
 
   viewer.classList.add("open");
   viewer.setAttribute("aria-hidden","false");
@@ -4865,22 +5288,28 @@ function render(){
       const el = document.createElement("article");
       el.className="promo-shell";
       el.innerHTML = `
-        <div class="card-img-wrap promo-open" data-promo-open="${p.id}" data-location-context="${state.location}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
-          <img class="card-img" src="${p.image}" alt="${p.brand} — ${p.name}">
+        <div class="promo-visual-group">
+          <div class="card-img-wrap promo-open" data-promo-open="${p.id}" data-location-context="${state.location}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
+            <img class="card-img" src="${p.image}" alt="${p.brand} — ${p.name}">
+            <button class="tile-add ${isAdded?"selected":""}" data-result-add="${p.id}" data-save-context="${state.location}" aria-label="${isAdded?"Remove from":"Add to"} My Save List">
+              ${isAdded?"✓":"+"}
+            </button>
+            ${isAdded ? `<div class="tile-saved">Added</div>` : ``}
+          </div>
+          <button class="card-store-location attached-location" data-card-location="${p.id}" data-location-context="${state.location}">Store Location</button>
         </div>
         <div class="card-meta">
           <div class="card-top card-top-single">
             <div class="loc outlet-line">${outletLabelForPromo(p)}</div>
           </div>
-          <div class="card-action-stack">
-            <button class="card-store-location" data-card-location="${p.id}" data-location-context="${state.location}">Store Location</button>
-            <button class="add ${isAdded?"added":""}" data-add="${p.id}" data-save-context="${state.location}">${isAdded?"✓ Saved":"+ Add to Save List"}</button>
-          </div>
         </div>`;
       cards.appendChild(el);
     });
   }
-  document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>togglePlan(b.dataset.add,b.dataset.saveContext || state.location));
+  document.querySelectorAll("[data-result-add]").forEach(b=>b.onclick=(e)=>{
+    e.stopPropagation();
+    togglePlan(b.dataset.resultAdd,b.dataset.saveContext || state.location);
+  });
   document.querySelectorAll("[data-card-location]").forEach(b=>b.onclick=(e)=>{
     e.stopPropagation();
     openPromoViewer(b.dataset.cardLocation,b.dataset.locationContext || state.location || "all");
@@ -4913,6 +5342,7 @@ function togglePlan(id, locationContext="all"){
     render();
     renderPlanDrawer();
     if(document.getElementById("surpriseOverlay").classList.contains("open")) renderSurpriseGrid();
+    if(document.getElementById("promoViewer").classList.contains("open")) refreshPromoViewerSaveState();
     return;
   }
 
@@ -4950,6 +5380,7 @@ function togglePlan(id, locationContext="all"){
   render();
   renderPlanDrawer();
   if(document.getElementById("surpriseOverlay").classList.contains("open")) renderSurpriseGrid();
+  if(document.getElementById("promoViewer").classList.contains("open")) refreshPromoViewerSaveState();
 }
 
 function renderPlanner(){
@@ -5044,10 +5475,15 @@ function renderPlanDrawer(){
       </article>`;
     }
 
-    return `<article class="plan-card-slot plan-promo-slot promo-open" data-promo-open="${p.id}" data-location-context="${savedPromoContext(p.id)}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
-      <img src="${p.image}" alt="${p.brand} — ${p.name}">
-      <div class="plan-slot-number">${index+1}</div>
-      <button class="plan-remove-x" data-remove-slot="${absoluteSlot}" aria-label="Remove ${p.name}">✕</button>
+    return `<article class="plan-card-slot plan-promo-slot">
+      <div class="promo-visual-group plan-visual-group">
+        <div class="plan-art promo-open" data-promo-open="${p.id}" data-location-context="${savedPromoContext(p.id)}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
+          <img src="${p.image}" alt="${p.brand} — ${p.name}">
+          <div class="plan-slot-number">${index+1}</div>
+          <button class="plan-remove-x" data-remove-slot="${absoluteSlot}" aria-label="Remove ${p.name}">✕</button>
+        </div>
+        <button class="card-store-location attached-location plan-store-location" data-plan-location="${p.id}" data-location-context="${savedPromoContext(p.id)}">Store Location</button>
+      </div>
     </article>`;
   }).join("");
 
@@ -5071,6 +5507,11 @@ function renderPlanDrawer(){
         }
       );
     };
+  });
+
+  document.querySelectorAll("[data-plan-location]").forEach(b=>b.onclick=(e)=>{
+    e.stopPropagation();
+    openPromoViewer(b.dataset.planLocation,b.dataset.locationContext || savedPromoContext(b.dataset.planLocation));
   });
 
   bindPromoOpeners();
@@ -5312,14 +5753,16 @@ function renderSurpriseGrid(){
 
     const isAdded = state.plan.includes(p.id);
     return `<article class="surprise-slot promo-slot ${isAdded ? "selected" : ""}">
-      <div class="surprise-art promo-open" data-promo-open="${p.id}" data-location-context="${state.surpriseLocation || "all"}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
-        <img src="${p.image}" alt="${p.brand} — ${p.name}">
-        <button class="tile-add ${isAdded ? "selected" : ""}" data-surprise-add="${p.id}" data-save-context="${state.surpriseLocation || "all"}" aria-label="${isAdded ? "Remove from" : "Add to"} My Save List">
-          ${isAdded ? "✓" : "+"}
-        </button>
-        ${isAdded ? `<div class="tile-saved">Added</div>` : ``}
+      <div class="promo-visual-group surprise-visual-group">
+        <div class="surprise-art promo-open" data-promo-open="${p.id}" data-location-context="${state.surpriseLocation || "all"}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
+          <img src="${p.image}" alt="${p.brand} — ${p.name}">
+          <button class="tile-add ${isAdded ? "selected" : ""}" data-surprise-add="${p.id}" data-save-context="${state.surpriseLocation || "all"}" aria-label="${isAdded ? "Remove from" : "Add to"} My Save List">
+            ${isAdded ? "✓" : "+"}
+          </button>
+          ${isAdded ? `<div class="tile-saved">Added</div>` : ``}
+        </div>
+        <button class="card-store-location attached-location surprise-store-location" data-surprise-location="${p.id}" data-location-context="${state.surpriseLocation || "all"}">Store Location</button>
       </div>
-      <button class="card-store-location surprise-store-location" data-surprise-location="${p.id}" data-location-context="${state.surpriseLocation || "all"}">Store Location</button>
     </article>`;
   }).join("");
 
@@ -5505,6 +5948,13 @@ document.getElementById("confirmYes").onclick=()=>{
 };
 document.getElementById("confirmOverlay").onclick=(e)=>{
   if(e.target.id==="confirmOverlay") closeConfirmation();
+};
+
+document.getElementById("promoViewerSave").onclick=(e)=>{
+  e.stopPropagation();
+  if(!currentPromoViewerId) return;
+  togglePlan(currentPromoViewerId,currentPromoViewerContext || "all");
+  refreshPromoViewerSaveState();
 };
 
 document.getElementById("promoViewerClose").onclick=closePromoViewer;
