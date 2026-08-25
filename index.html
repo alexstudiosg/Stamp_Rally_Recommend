@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f16614">
-<title>&Rewards — August Stamp Guide Prototype V22</title>
+<title>&Rewards — August Stamp Guide Prototype V32</title>
 <style>
 :root{
   --orange:#ff641d;
@@ -414,7 +414,7 @@ h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.035em;margin-bottom:4px}
 }
 
 
-/* --- V11 prominent My 4-Stamps CTA --- */
+/* --- V11 prominent My Save List CTA --- */
 .planner{
   width:min(820px,calc(100% - 20px)) !important;
   min-height:86px;
@@ -587,7 +587,7 @@ h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.035em;margin-bottom:4px}
 }
 
 
-/* --- V13 visual My 4-Stamps board --- */
+/* --- V13 visual My Save List board --- */
 .plan-sheet{
   background:#fff9f0;
   padding:18px 16px calc(18px + env(safe-area-inset-bottom));
@@ -1031,6 +1031,500 @@ h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.035em;margin-bottom:4px}
   }
 }
 
+
+/* --- V23 mobile modal safe-area / close-button fix --- */
+.finder-overlay{
+  box-sizing:border-box;
+  padding-top:max(10px, env(safe-area-inset-top));
+  padding-bottom:max(8px, env(safe-area-inset-bottom));
+}
+.finder-sheet{
+  max-height:calc(100dvh - max(20px, env(safe-area-inset-top)) - max(16px, env(safe-area-inset-bottom)));
+  overscroll-behavior:contain;
+}
+.finder-head{
+  position:relative;
+  padding-right:48px;
+}
+.finder-close{
+  position:sticky;
+  top:8px;
+  margin-left:auto;
+  z-index:20;
+}
+@media(max-width:620px){
+  .finder-overlay{
+    align-items:flex-end;
+    padding: max(8px, env(safe-area-inset-top)) 0 0;
+  }
+  .finder-sheet{
+    max-height:calc(100dvh - max(8px, env(safe-area-inset-top)));
+    border-radius:24px 24px 0 0;
+    padding-top:0;
+  }
+  .finder-head{
+    padding-top:4px;
+    padding-right:46px;
+  }
+  .finder-close{
+    position:absolute;
+    top:4px;
+    right:0;
+  }
+}
+
+
+/* --- V24 smaller surprise header + 2 clean instruction lines --- */
+.surprise-instruction{
+  padding:10px 12px 9px !important;
+}
+.surprise-instruction strong{
+  display:block;
+  color:#2f1a11;
+  font-size:16px !important;
+  line-height:1.15;
+  margin-bottom:6px !important;
+  font-weight:1000;
+}
+.surprise-instruction span{
+  display:block;
+  color:#6a4d3f;
+  font-size:12px !important;
+  font-weight:800;
+  line-height:1.35 !important;
+}
+.surprise-instruction span + span{
+  margin-top:2px;
+}
+.inline-plus{
+  display:inline-grid;
+  place-items:center;
+  width:20px !important;
+  height:20px !important;
+  margin:0 2px;
+  border-radius:50%;
+  background:#25150f;
+  color:#fff;
+  font-size:14px !important;
+  font-weight:1000;
+  line-height:1;
+  vertical-align:middle;
+}
+@media(max-width:620px){
+  .surprise-instruction{
+    padding:9px 10px 8px !important;
+    margin-bottom:8px;
+  }
+  .surprise-instruction strong{
+    font-size:15px !important;
+    margin-bottom:5px !important;
+  }
+  .surprise-instruction span{
+    font-size:11px !important;
+    line-height:1.32 !important;
+  }
+  .inline-plus{
+    width:18px !important;
+    height:18px !important;
+    font-size:13px !important;
+  }
+}
+
+
+/* --- V25 fix surprise instruction layout bug --- */
+.surprise-instruction{
+  margin:0 2px 10px !important;
+  padding:10px 12px 9px !important;
+  border-radius:12px;
+  background:rgba(255,255,255,.94);
+  color:#4b2a18;
+  text-align:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.14);
+}
+.surprise-title{
+  display:block;
+  color:#2f1a11;
+  font-size:16px;
+  line-height:1.15;
+  margin-bottom:6px;
+  font-weight:1000;
+}
+.surprise-line{
+  display:block;
+  color:#6a4d3f;
+  font-size:12px;
+  font-weight:800;
+  line-height:1.35;
+}
+.surprise-line + .surprise-line{
+  margin-top:2px;
+}
+.inline-plus{
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+  width:20px !important;
+  height:20px !important;
+  margin:0 2px;
+  border-radius:50%;
+  background:#25150f !important;
+  color:#ffffff !important;
+  font-size:14px !important;
+  font-weight:1000 !important;
+  line-height:1 !important;
+  vertical-align:middle;
+}
+@media(max-width:620px){
+  .surprise-instruction{
+    padding:9px 10px 8px !important;
+    margin-bottom:8px !important;
+  }
+  .surprise-title{
+    font-size:15px;
+    margin-bottom:5px;
+  }
+  .surprise-line{
+    font-size:11px;
+    line-height:1.32;
+  }
+  .inline-plus{
+    width:18px !important;
+    height:18px !important;
+    font-size:13px !important;
+  }
+}
+
+
+/* --- V26 compact surprise instruction spacing --- */
+.surprise-instruction{
+  margin:0 2px 8px !important;
+  padding:8px 10px 8px !important;
+}
+.surprise-title{
+  font-size:20px !important;
+  line-height:1.05 !important;
+  margin:0 0 3px !important;
+}
+.surprise-line{
+  font-size:12px !important;
+  line-height:1.18 !important;
+  margin:0 !important;
+}
+.surprise-line + .surprise-line{
+  margin-top:1px !important;
+}
+.inline-plus{
+  vertical-align:-2px !important;
+}
+@media(max-width:620px){
+  .surprise-instruction{
+    padding:7px 9px 7px !important;
+    margin-bottom:7px !important;
+  }
+  .surprise-title{
+    font-size:19px !important;
+    margin-bottom:2px !important;
+  }
+  .surprise-line{
+    font-size:11px !important;
+    line-height:1.15 !important;
+  }
+}
+
+
+/* --- V27 phone shake icon on Surprise Me button --- */
+.surprise-kv-btn{
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+}
+.shake-phone-icon{
+  flex:0 0 auto;
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  color:#4a240d;
+}
+.shake-phone-icon svg{
+  width:100%;
+  height:100%;
+  display:block;
+}
+.surprise-kv-btn .btn-two-line{
+  display:inline-block;
+  line-height:1.02;
+  text-align:left;
+}
+@media(max-width:620px){
+  .surprise-kv-btn{
+    gap:10px;
+  }
+  .shake-phone-icon{
+    width:36px;
+    height:36px;
+  }
+}
+
+
+/* --- V28 tighten post-KV spacing and clean results header --- */
+.hero-wrap{
+  margin-bottom:0 !important;
+}
+.results-area{
+  margin-top:14px !important;
+  padding-top:0 !important;
+}
+.results-head{
+  max-width:1120px;
+  margin:8px auto 10px !important;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+}
+.results-title-wrap{
+  min-width:0;
+}
+.results-head .eyebrow{
+  margin-bottom:2px;
+}
+.results-head h2{
+  margin:0;
+  font-size:clamp(26px,4vw,34px);
+  line-height:1.02;
+  white-space:nowrap;
+}
+.count{
+  display:none !important;
+}
+.try-again-pill{
+  min-height:44px;
+  padding:10px 18px !important;
+  border-radius:999px !important;
+  background:#f7ebdf !important;
+  border:1px solid #efbe96 !important;
+  color:#8a4e2d !important;
+  box-shadow:none !important;
+  font-size:14px;
+  font-weight:950 !important;
+  flex:0 0 auto;
+}
+.try-again-pill:hover{
+  filter:brightness(1.01);
+}
+.try-again-pill:active{
+  transform:translateY(1px);
+}
+
+@media(max-width:620px){
+  .results-area{
+    margin-top:8px !important;
+  }
+  .results-head{
+    margin:6px auto 10px !important;
+    align-items:flex-end;
+    gap:10px;
+  }
+  .results-head .eyebrow{
+    font-size:10px;
+    margin-bottom:3px;
+  }
+  .results-head h2{
+    font-size:21px;
+    white-space:nowrap;
+  }
+  .try-again-pill{
+    min-height:38px;
+    padding:8px 14px !important;
+    font-size:13px;
+  }
+}
+
+
+/* --- V29 customer-facing outlet line / shorter save button --- */
+.card-top-single{
+  display:block !important;
+  margin-bottom:10px;
+}
+.outlet-line{
+  display:block;
+  text-align:left;
+  color:#8b634e !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  line-height:1.2;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.add{
+  font-size:13px;
+}
+.add.added{
+  font-size:13px;
+}
+@media(max-width:620px){
+  .outlet-line{
+    font-size:10px !important;
+  }
+  .add,
+  .add.added{
+    font-size:10px !important;
+  }
+}
+
+
+/* --- V30 My Save List + Yes/No confirmation --- */
+.planner-kicker{
+  letter-spacing:.12em;
+}
+.planner-btn{
+  min-width:220px;
+}
+.plan-main-title{
+  margin-top:2px;
+}
+.confirm-overlay{
+  position:fixed;
+  inset:0;
+  z-index:160;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(30,14,7,.72);
+  backdrop-filter:blur(7px);
+}
+.confirm-overlay.open{
+  display:flex;
+}
+.confirm-card{
+  width:min(390px,100%);
+  background:#fffaf3;
+  border-radius:22px;
+  padding:22px;
+  text-align:center;
+  box-shadow:0 24px 70px rgba(0,0,0,.34);
+}
+.confirm-title{
+  font-size:24px;
+  line-height:1.05;
+  font-weight:1000;
+  color:#2f1a11;
+}
+.confirm-copy{
+  margin:10px auto 18px;
+  color:#735341;
+  font-size:14px;
+  font-weight:750;
+  line-height:1.4;
+}
+.confirm-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.confirm-actions .btn{
+  min-height:48px;
+}
+.confirm-no{
+  border-radius:999px !important;
+}
+.confirm-yes{
+  border-radius:999px !important;
+}
+@media(max-width:620px){
+  .planner-btn{
+    min-width:155px;
+  }
+  .confirm-card{
+    padding:20px 16px 16px;
+    border-radius:20px;
+  }
+  .confirm-title{
+    font-size:22px;
+  }
+  .confirm-copy{
+    font-size:13px;
+  }
+}
+
+
+/* --- V31 full-screen promo viewer --- */
+body.viewer-open{
+  overflow:hidden;
+}
+.promo-open{
+  cursor:zoom-in;
+}
+.promo-viewer{
+  position:fixed;
+  inset:0;
+  z-index:220;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));
+  background:rgba(18,9,5,.94);
+  backdrop-filter:blur(8px);
+}
+.promo-viewer.open{
+  display:flex;
+}
+.promo-viewer-stage{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:auto;
+}
+.promo-viewer-stage img{
+  display:block;
+  max-width:min(92vw,760px);
+  max-height:92vh;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  border-radius:18px;
+  box-shadow:0 24px 70px rgba(0,0,0,.42);
+}
+.promo-viewer-close{
+  position:fixed;
+  top:max(12px,env(safe-area-inset-top));
+  right:max(12px,env(safe-area-inset-right));
+  z-index:225;
+  width:46px;
+  height:46px;
+  border:0;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:rgba(255,255,255,.96);
+  color:#311a10;
+  font-size:22px;
+  font-weight:1000;
+  cursor:pointer;
+  box-shadow:0 8px 28px rgba(0,0,0,.28);
+}
+@media(max-width:620px){
+  .promo-viewer{
+    padding:max(8px,env(safe-area-inset-top)) 8px max(8px,env(safe-area-inset-bottom));
+  }
+  .promo-viewer-stage img{
+    max-width:96vw;
+    max-height:94dvh;
+    border-radius:14px;
+  }
+  .promo-viewer-close{
+    width:42px;
+    height:42px;
+    font-size:20px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1043,7 +1537,17 @@ h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.035em;margin-bottom:4px}
       <div class="hero-cta-band kv-extended">
         <div class="hero-kv-buttons">
           <button class="hero-kv-btn" id="openFinder"><span class="btn-two-line">Let me<br>choose</span></button>
-          <button class="hero-kv-btn hero-kv-btn-alt" id="quickSurprise"><span class="btn-two-line">Surprise me<br>instead</span></button>
+          <button class="hero-kv-btn hero-kv-btn-alt surprise-kv-btn" id="quickSurprise">
+            <span class="shake-phone-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" role="img">
+                <path d="M17 8h14a3 3 0 0 1 3 3v26a3 3 0 0 1-3 3H17a3 3 0 0 1-3-3V11a3 3 0 0 1 3-3Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                <path d="M21 12h6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="24" cy="35.5" r="1.8" fill="currentColor"/>
+                <path d="M9 16c-2 2-3 4.5-3 8s1 6 3 8M39 16c2 2 3 4.5 3 8s-1 6-3 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="btn-two-line">Surprise me<br>instead</span>
+          </button>
         </div>
         <div class="hero-kv-note">Choose your own promos or let us suggest a quick 4-pick set for you.</div>
       </div>
@@ -1052,28 +1556,25 @@ h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.035em;margin-bottom:4px}
 
   <section class="results-area" id="resultsArea">
     <div class="results-head">
-      <div>
+      <div class="results-title-wrap">
         <div class="eyebrow">Your matches</div>
         <h2>Stamp-worthy picks</h2>
       </div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <div class="count" id="resultCount"></div>
-        <button class="btn secondary" id="changeFilters">Try Again</button>
-      </div>
+      <button class="btn secondary try-again-pill" id="changeFilters">Try Again</button>
     </div>
     <section class="cards" id="cards"></section>
   </section>
-  <div class="footer">Prototype v22 · Customer-facing Stamp Guide</div>
+  <div class="footer">Prototype v32 · Customer-facing Stamp Guide</div>
 </div>
 
 <div class="planner" id="plannerBar">
   <div class="planner-left">
-    <div class="planner-kicker">MY 4-STAMP PLAN</div>
+    <div class="planner-kicker">MY SAVE LIST</div>
     <div class="progress-dots" id="dots"></div>
     <div class="planner-sub" id="plannerSub">Choose 4 different concepts</div>
   </div>
   <button class="planner-btn" id="viewPlan">
-    <span>View My 4-Stamps</span>
+    <span>View My Save List</span>
     <span class="planner-arrow">→</span>
   </button>
 </div>
@@ -1150,7 +1651,11 @@ h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.035em;margin-bottom:4px}
   <div class="surprise-stage">
     <button class="surprise-x" id="closeSurprise" aria-label="Close">✕</button>
 
-    <div class="surprise-instruction"><strong>I want to try these!</strong><br><span>Tap <span class="inline-plus">+</span> to save your picks. Shake again to see the next 4 items.</span></div>
+    <div class="surprise-instruction">
+      <div class="surprise-title">I want to try these!</div>
+      <div class="surprise-line">Tap <span class="inline-plus">+</span> to save your picks.</div>
+      <div class="surprise-line">Shake again to see the next 4 items.</div>
+    </div>
     <div class="surprise-grid fixed-four-grid" id="surpriseGrid"></div>
 
     <div class="surprise-bottom">
@@ -1160,15 +1665,35 @@ h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.035em;margin-bottom:4px}
   </div>
 </div>
 
-<div class="plan-toast" id="planToast">Saved to My 4-Stamps</div>
+<div class="plan-toast" id="planToast">Saved to My Save List</div>
+
+
+
+<div class="promo-viewer" id="promoViewer" aria-hidden="true">
+  <button class="promo-viewer-close" id="promoViewerClose" aria-label="Close promo">✕</button>
+  <div class="promo-viewer-stage" id="promoViewerStage">
+    <img id="promoViewerImg" alt="">
+  </div>
+</div>
+
+<div class="confirm-overlay" id="confirmOverlay" aria-hidden="true">
+  <div class="confirm-card">
+    <div class="confirm-title" id="confirmTitle">Are you sure?</div>
+    <div class="confirm-copy" id="confirmCopy"></div>
+    <div class="confirm-actions">
+      <button class="btn secondary confirm-no" id="confirmNo">No</button>
+      <button class="btn primary confirm-yes" id="confirmYes">Yes</button>
+    </div>
+  </div>
+</div>
 
 <div class="drawer" id="drawer">
   <div class="drawer-sheet plan-sheet">
     <div class="sheet-wrap">
       <div class="plan-head">
         <div>
-          <div class="eyebrow">MY 4-STAMPS</div>
-          <div class="plan-main-title">Your promo picks</div>
+          <div class="eyebrow">MY SAVE LIST</div>
+          <div class="plan-main-title">Your saved promos</div>
         </div>
         <button class="close" id="closeDrawer" aria-label="Close">✕</button>
       </div>
@@ -1238,9 +1763,59 @@ function filteredPromos(){
 
 function prettyLoc(l){ return l==="nex" ? "NEX &JOY" : "Jurong Point &JOY"; }
 
+function outletLabelForPromo(p){
+  if(state.location !== "all" && p.locations.includes(state.location)){
+    return state.location === "nex"
+      ? "&JOY Food Street (NEX)"
+      : "&JOY Food Street (Jurong Point)";
+  }
+  if(p.locations.length === 1){
+    return p.locations[0] === "nex"
+      ? "&JOY Food Street (NEX)"
+      : "&JOY Food Street (Jurong Point)";
+  }
+  return "&JOY Food Street (NEX / Jurong Point)";
+}
+
+
+function openPromoViewer(id){
+  const promo = promos.find(p=>p.id===id);
+  if(!promo) return;
+
+  const viewer = document.getElementById("promoViewer");
+  const img = document.getElementById("promoViewerImg");
+  img.src = promo.image;
+  img.alt = `${promo.brand} — ${promo.name}`;
+  viewer.classList.add("open");
+  viewer.setAttribute("aria-hidden","false");
+  document.body.classList.add("viewer-open");
+}
+
+function closePromoViewer(){
+  const viewer = document.getElementById("promoViewer");
+  viewer.classList.remove("open");
+  viewer.setAttribute("aria-hidden","true");
+  document.body.classList.remove("viewer-open");
+}
+
+function bindPromoOpeners(){
+  document.querySelectorAll("[data-promo-open]").forEach(el=>{
+    el.onclick=(e)=>{
+      if(e.target.closest("button")) return;
+      openPromoViewer(el.dataset.promoOpen);
+    };
+    el.onkeydown=(e)=>{
+      if(e.key==="Enter" || e.key===" "){
+        e.preventDefault();
+        openPromoViewer(el.dataset.promoOpen);
+      }
+    };
+  });
+}
+
 function render(){
   const list = filteredPromos();
-  resultCount.textContent = `${list.length} ${list.length===1?"pick":"picks"}`;
+  if(resultCount) resultCount.textContent = "";
   cards.innerHTML = "";
   resultsArea.classList.toggle("active", state.hasSearched);
 
@@ -1252,22 +1827,22 @@ function render(){
       const el = document.createElement("article");
       el.className="promo-shell";
       el.innerHTML = `
-        <div class="card-img-wrap"><img class="card-img" src="${p.image}" alt="${p.brand} — ${p.name}"></div>
+        <div class="card-img-wrap promo-open" data-promo-open="${p.id}" role="button" tabindex="0" aria-label="View ${p.name} full screen"><img class="card-img" src="${p.image}" alt="${p.brand} — ${p.name}"></div>
         <div class="card-meta">
-          <div class="card-top">
-            <div class="card-brand">${p.brand}</div>
-            <div class="loc">${p.locations.map(prettyLoc).join(" · ")}</div>
+          <div class="card-top card-top-single">
+            <div class="loc outlet-line">${outletLabelForPromo(p)}</div>
           </div>
-          <button class="add ${isAdded?"added":""}" data-add="${p.id}">${isAdded?"✓ Added to my plan":"+ Add to my 4-stamp plan"}</button>
+          <button class="add ${isAdded?"added":""}" data-add="${p.id}">${isAdded?"✓ Saved":"+ Add to Save List"}</button>
         </div>`;
       cards.appendChild(el);
     });
   }
   document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>togglePlan(b.dataset.add));
+  bindPromoOpeners();
   renderPlanner();
 }
 
-function showPlanToast(message="Saved to My 4-Stamps"){
+function showPlanToast(message="Saved to My Save List"){
   const toast = document.getElementById("planToast");
   if(!toast) return;
   toast.textContent = message;
@@ -1289,14 +1864,14 @@ function togglePlan(id){
       return;
     }
     if(state.plan.length>=4){
-      alert("Your 4-stamp plan is already full. Remove one pick first.");
+      alert("Your Save List is already full. Remove one saved promo first.");
       return;
     }
     state.plan.push(id);
   }
   savePlan();
-  if(!wasAdded) showPlanToast("✓ Saved to My 4-Stamps");
-  else showPlanToast("Removed from My 4-Stamps");
+  if(!wasAdded) showPlanToast("✓ Saved to My Save List");
+  else showPlanToast("Removed from My Save List");
   render();
   renderPlanDrawer();
   if(document.getElementById("surpriseOverlay").classList.contains("open")) renderSurpriseGrid();
@@ -1308,8 +1883,27 @@ function renderPlanner(){
   const dots = document.getElementById("dots");
   dots.innerHTML = [0,1,2,3].map(i=>`<div class="dot ${i<state.plan.length?"done":""}">${i<state.plan.length?"✓":i+1}</div>`).join("");
   document.getElementById("plannerSub").textContent =
-    state.plan.length===4 ? "4 different concepts selected — plan complete!" :
-    `${4-state.plan.length} more ${4-state.plan.length===1?"concept":"concepts"} to complete your plan`;
+    state.plan.length===4 ? "4 of 4 promos saved" :
+    `${state.plan.length} of 4 promos saved`;
+}
+
+
+let pendingConfirmAction = null;
+
+function askConfirmation(message, onYes){
+  pendingConfirmAction = onYes;
+  document.getElementById("confirmTitle").textContent = "Are you sure?";
+  document.getElementById("confirmCopy").textContent = message;
+  const overlay = document.getElementById("confirmOverlay");
+  overlay.classList.add("open");
+  overlay.setAttribute("aria-hidden","false");
+}
+
+function closeConfirmation(){
+  pendingConfirmAction = null;
+  const overlay = document.getElementById("confirmOverlay");
+  overlay.classList.remove("open");
+  overlay.setAttribute("aria-hidden","true");
 }
 
 function renderPlanDrawer(){
@@ -1329,7 +1923,7 @@ function renderPlanDrawer(){
       </article>`;
     }
 
-    return `<article class="plan-card-slot plan-promo-slot">
+    return `<article class="plan-card-slot plan-promo-slot promo-open" data-promo-open="${p.id}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
       <img src="${p.image}" alt="${p.brand} — ${p.name}">
       <div class="plan-slot-number">${index+1}</div>
       <button class="plan-remove-x" data-remove="${p.id}" aria-label="Remove ${p.name}">✕</button>
@@ -1339,10 +1933,18 @@ function renderPlanDrawer(){
   document.querySelectorAll("[data-remove]").forEach(b=>{
     b.onclick=(e)=>{
       e.stopPropagation();
-      togglePlan(b.dataset.remove);
-      renderPlanDrawer();
+      const promo = promos.find(p=>p.id===b.dataset.remove);
+      askConfirmation(
+        promo ? `Remove "${promo.name}" from your Save List?` : "Remove this promo from your Save List?",
+        ()=>{
+          togglePlan(b.dataset.remove);
+          renderPlanDrawer();
+          closeConfirmation();
+        }
+      );
     };
   });
+  bindPromoOpeners();
 }
 function weightedShuffle(list, count=4){
   const pool = [...list];
@@ -1371,7 +1973,7 @@ function weightedShuffle(list, count=4){
 function confirmResetPlanForNewPicks(){
   if(state.plan.length < 4) return true;
 
-  const reset = window.confirm("Your 4-stamp plan is already full.\n\nDo you want to remove your saved list and try again?");
+  const reset = window.confirm("Your Save List is already full.\n\nDo you want to clear your saved list and try again?");
   if(!reset) return false;
 
   state.plan = [];
@@ -1442,9 +2044,9 @@ function renderSurpriseGrid(){
     }
 
     const isAdded = state.plan.includes(p.id);
-    return `<article class="surprise-slot promo-slot ${isAdded ? "selected" : ""}">
+    return `<article class="surprise-slot promo-slot promo-open ${isAdded ? "selected" : ""}" data-promo-open="${p.id}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
       <img src="${p.image}" alt="${p.brand} — ${p.name}">
-      <button class="tile-add ${isAdded ? "selected" : ""}" data-surprise-add="${p.id}" aria-label="${isAdded ? "Remove from" : "Add to"} My 4-Stamps">
+      <button class="tile-add ${isAdded ? "selected" : ""}" data-surprise-add="${p.id}" aria-label="${isAdded ? "Remove from" : "Add to"} My Save List">
         ${isAdded ? "✓" : "+"}
       </button>
       ${isAdded ? `<div class="tile-saved">Added</div>` : ``}
@@ -1455,6 +2057,7 @@ function renderSurpriseGrid(){
     e.stopPropagation();
     togglePlan(b.dataset.surpriseAdd);
   });
+  bindPromoOpeners();
 }
 async function enableMotion(){
   if(state.motionEnabled) return;
@@ -1545,12 +2148,43 @@ document.getElementById("closeDrawer").onclick=()=>document.getElementById("draw
 document.getElementById("closePlanBtn").onclick=()=>document.getElementById("drawer").classList.remove("open");
 document.getElementById("drawer").onclick=e=>{ if(e.target.id==="drawer") e.currentTarget.classList.remove("open"); };
 document.getElementById("clearPlan").onclick=()=>{
-  state.plan = [];
-  savePlan();
-  render();
-  renderPlanDrawer();
-  showPlanToast("My 4-Stamps cleared");
+  if(!state.plan.length) return;
+  askConfirmation("Clear all saved promos from your Save List?", ()=>{
+    state.plan = [];
+    savePlan();
+    render();
+    renderPlanDrawer();
+    showPlanToast("My Save List cleared");
+    closeConfirmation();
+    document.getElementById("drawer").classList.remove("open");
+  });
 };
+
+document.getElementById("confirmNo").onclick=closeConfirmation;
+document.getElementById("confirmYes").onclick=()=>{
+  if(typeof pendingConfirmAction === "function"){
+    const action = pendingConfirmAction;
+    pendingConfirmAction = null;
+    action();
+  }else{
+    closeConfirmation();
+  }
+};
+document.getElementById("confirmOverlay").onclick=(e)=>{
+  if(e.target.id==="confirmOverlay") closeConfirmation();
+};
+
+document.getElementById("promoViewerClose").onclick=closePromoViewer;
+document.getElementById("promoViewer").onclick=(e)=>{
+  if(e.target.id==="promoViewer" || e.target.id==="promoViewerStage"){
+    closePromoViewer();
+  }
+};
+document.addEventListener("keydown",(e)=>{
+  if(e.key==="Escape" && document.getElementById("promoViewer").classList.contains("open")){
+    closePromoViewer();
+  }
+});
 
 render();
 </script>
