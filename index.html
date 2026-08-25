@@ -3199,6 +3199,212 @@ body.viewer-open{
   .store-group-title{font-size:12.5px}
 }
 
+
+/* --- V55 promo card → context-aware outlet details --- */
+.promo-viewer{
+  overflow:hidden !important;
+}
+
+.promo-viewer-stage{
+  align-items:flex-start !important;
+  justify-content:center !important;
+  padding:24px 12px calc(24px + env(safe-area-inset-bottom)) !important;
+  overflow:auto !important;
+}
+
+.promo-viewer-content{
+  width:min(94vw,560px);
+  margin:auto;
+  padding-top:8px;
+}
+
+.promo-viewer-frame{
+  width:100%;
+}
+
+.promo-viewer-frame img{
+  width:100% !important;
+  height:auto !important;
+  max-height:none !important;
+  object-fit:contain;
+}
+
+.promo-location-panel{
+  margin-top:12px;
+  padding:16px;
+  border-radius:18px;
+  background:#fffaf5;
+  color:#2e1910;
+  box-shadow:0 14px 38px rgba(0,0,0,.24);
+  line-height:1.25;
+}
+
+.promo-location-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+
+.promo-location-kicker{
+  font-size:9px;
+  letter-spacing:.13em;
+  font-weight:1000;
+  color:#de5c1b;
+}
+
+.promo-location-title{
+  margin-top:3px;
+  font-size:20px;
+  line-height:1.05;
+  font-weight:1000;
+  color:#2c180f;
+}
+
+.promo-location-sub{
+  margin-top:4px;
+  font-size:11px;
+  font-weight:850;
+  color:#8a6653;
+}
+
+.promo-nearest-badge{
+  flex:0 0 auto;
+  padding:5px 8px;
+  border-radius:999px;
+  background:#fff0e4;
+  color:#c55219;
+  font-size:9px;
+  font-weight:1000;
+}
+
+.promo-location-list{
+  display:grid;
+  gap:8px;
+}
+
+.promo-location-list-all{
+  max-height:320px;
+  overflow:auto;
+  padding-right:2px;
+}
+
+.promo-location-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+  align-items:center;
+  padding:11px;
+  border:1px solid #eadbd2;
+  border-radius:13px;
+  background:#fff;
+}
+
+.promo-location-row-main{
+  min-width:0;
+}
+
+.promo-location-mall{
+  font-size:12.5px;
+  font-weight:1000;
+  color:#321b11;
+}
+
+.promo-location-address{
+  margin-top:3px;
+  font-size:9.5px;
+  line-height:1.35;
+  font-weight:700;
+  color:#8a6b5a;
+}
+
+.promo-location-distance{
+  margin-top:4px;
+  font-size:9px;
+  font-weight:950;
+  color:#d35a1d;
+}
+
+.promo-location-directions{
+  min-height:34px;
+  padding:0 10px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#2e1a10;
+  color:#fff;
+  text-decoration:none;
+  font-size:9.5px;
+  font-weight:1000;
+  white-space:nowrap;
+}
+
+.promo-view-all{
+  width:100%;
+  min-height:40px;
+  margin-top:10px;
+  border:1px solid #eccfbd;
+  border-radius:12px;
+  background:#fff0e5;
+  color:#b54d1a;
+  font-size:10.5px;
+  font-weight:1000;
+  cursor:pointer;
+}
+
+.promo-location-not-found{
+  padding:12px;
+  border:1px dashed #e7b99f;
+  border-radius:12px;
+  background:#fff5ee;
+  color:#805b48;
+  font-size:10px;
+  line-height:1.4;
+  font-weight:800;
+}
+
+@media(max-width:620px){
+  .promo-viewer-stage{
+    padding:max(16px,env(safe-area-inset-top)) 8px calc(18px + env(safe-area-inset-bottom)) !important;
+  }
+  .promo-viewer-content{
+    width:calc(100vw - 16px);
+    padding-top:8px;
+  }
+  .promo-viewer-frame img{
+    width:100% !important;
+    border-radius:12px !important;
+  }
+  .promo-location-panel{
+    margin-top:9px;
+    padding:13px;
+    border-radius:15px;
+  }
+  .promo-location-title{
+    font-size:17px;
+  }
+  .promo-location-list-all{
+    max-height:280px;
+  }
+  .promo-location-row{
+    padding:10px;
+    gap:8px;
+  }
+  .promo-location-mall{
+    font-size:11.5px;
+  }
+  .promo-location-address{
+    font-size:8.8px;
+  }
+  .promo-location-directions{
+    min-height:32px;
+    padding:0 8px;
+    font-size:8.8px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3444,9 +3650,12 @@ body.viewer-open{
 
 <div class="promo-viewer" id="promoViewer" aria-hidden="true">
   <div class="promo-viewer-stage" id="promoViewerStage">
-    <div class="promo-viewer-frame">
-      <img id="promoViewerImg" alt="">
-      <button class="promo-viewer-close" id="promoViewerClose" aria-label="Close promo">✕</button>
+    <div class="promo-viewer-content">
+      <div class="promo-viewer-frame">
+        <img id="promoViewerImg" alt="">
+        <button class="promo-viewer-close" id="promoViewerClose" aria-label="Close promo">✕</button>
+      </div>
+      <div class="promo-location-panel" id="promoLocationPanel"></div>
     </div>
   </div>
 </div>
@@ -3528,7 +3737,7 @@ const savedPlan = (() => {
     const raw = JSON.parse(localStorage.getItem("stampGuidePlan") || "[]");
     if(!Array.isArray(raw)) return slots;
 
-    // Supports both the previous compact list and the new fixed 12-slot format.
+    // Supports both the previous compact list and the fixed 12-slot format.
     raw.slice(0,12).forEach((id,index)=>{
       if(id && promos.some(p=>p.id===id)) slots[index] = id;
     });
@@ -3538,10 +3747,20 @@ const savedPlan = (() => {
   }
 })();
 
+const savedPlanContexts = (() => {
+  try{
+    const raw = JSON.parse(localStorage.getItem("stampGuidePlanContexts") || "{}");
+    return raw && typeof raw === "object" && !Array.isArray(raw) ? raw : {};
+  }catch(e){
+    return {};
+  }
+})();
+
 const state = {
   location:"all",
   tokens:new Set(),
   plan:savedPlan,
+  planContexts:savedPlanContexts,
   hasSearched:false,
   motionEnabled:false,
   lastShake:0,
@@ -3553,7 +3772,13 @@ const state = {
 function savePlan(){
   try{
     localStorage.setItem("stampGuidePlan", JSON.stringify(state.plan));
+    localStorage.setItem("stampGuidePlanContexts", JSON.stringify(state.planContexts || {}));
   }catch(e){}
+}
+
+function savedPromoContext(id){
+  const context = state.planContexts && state.planContexts[id];
+  return ["all","nex","jurong"].includes(context) ? context : "all";
 }
 
 function savedCount(){
@@ -3618,14 +3843,128 @@ function outletLabelForPromo(p){
 }
 
 
-function openPromoViewer(id){
+function promoContextLabel(context){
+  if(context === "nex") return "NEX";
+  if(context === "jurong") return "Jurong Point";
+  return "Anywhere";
+}
+
+function storeMatchesPromoContext(store, context){
+  const mall = String(store.mall || "").toLowerCase();
+  if(context === "nex") return mall.includes("nex");
+  if(context === "jurong") return mall.includes("jurong point");
+  return true;
+}
+
+function promoBrandStores(promo, context="all"){
+  let stores = CAMPAIGN_STORES.filter(s=>s.brand === promo.brand);
+
+  if(context !== "all"){
+    stores = stores.filter(s=>storeMatchesPromoContext(s, context));
+  }
+
+  if(storeLocatorState && storeLocatorState.hasLocation){
+    stores = stores
+      .map(s=>({...s,_promoDistance:storeDistanceKm(s)}))
+      .sort((a,b)=>(a._promoDistance ?? Infinity)-(b._promoDistance ?? Infinity));
+  }else{
+    stores = stores.sort((a,b)=>String(a.mall).localeCompare(String(b.mall)));
+  }
+
+  return stores;
+}
+
+function promoLocationRowHTML(store){
+  const distance = storeLocatorState && storeLocatorState.hasLocation
+    ? storeDistanceKm(store)
+    : null;
+
+  return `
+    <div class="promo-location-row">
+      <div class="promo-location-row-main">
+        <div class="promo-location-mall">${escapeStoreHTML(store.mall)}${store.unit ? ` · ${escapeStoreHTML(store.unit)}` : ""}</div>
+        <div class="promo-location-address">${escapeStoreHTML(store.address)}</div>
+        ${distance != null ? `<div class="promo-location-distance">${formatStoreDistance(distance)} away</div>` : ""}
+      </div>
+      <a class="promo-location-directions" href="${storeDirectionsURL(store)}" target="_blank" rel="noopener">Directions ↗</a>
+    </div>
+  `;
+}
+
+function renderPromoLocationPanel(promo, context){
+  const panel = document.getElementById("promoLocationPanel");
+  if(!panel) return;
+
+  const stores = promoBrandStores(promo, context);
+
+  if(context !== "all"){
+    if(stores.length){
+      panel.innerHTML = `
+        <div class="promo-location-head">
+          <div>
+            <div class="promo-location-kicker">YOUR SELECTED LOCATION</div>
+            <div class="promo-location-title">${escapeStoreHTML(promo.brand)}</div>
+            <div class="promo-location-sub">${promoContextLabel(context)}</div>
+          </div>
+        </div>
+        <div class="promo-location-list">
+          ${stores.map(promoLocationRowHTML).join("")}
+        </div>
+        <button class="promo-view-all" type="button" data-promo-view-all="${promo.id}">View all ${escapeStoreHTML(promo.brand)} locations</button>
+      `;
+    }else{
+      panel.innerHTML = `
+        <div class="promo-location-head">
+          <div>
+            <div class="promo-location-kicker">YOUR SELECTED LOCATION</div>
+            <div class="promo-location-title">${escapeStoreHTML(promo.brand)}</div>
+            <div class="promo-location-sub">${promoContextLabel(context)}</div>
+          </div>
+        </div>
+        <div class="promo-location-not-found">
+          We don't have an active ${escapeStoreHTML(promo.brand)} outlet at ${promoContextLabel(context)} in the current store list.
+        </div>
+        <button class="promo-view-all" type="button" data-promo-view-all="${promo.id}">View all ${escapeStoreHTML(promo.brand)} locations</button>
+      `;
+    }
+  }else{
+    panel.innerHTML = `
+      <div class="promo-location-head">
+        <div>
+          <div class="promo-location-kicker">WHERE TO FIND IT</div>
+          <div class="promo-location-title">${escapeStoreHTML(promo.brand)}</div>
+          <div class="promo-location-sub">${stores.length} ${stores.length===1 ? "participating outlet" : "participating outlets"}</div>
+        </div>
+        ${storeLocatorState && storeLocatorState.hasLocation ? `<div class="promo-nearest-badge">Nearest first</div>` : ""}
+      </div>
+      <div class="promo-location-list promo-location-list-all">
+        ${stores.length
+          ? stores.map(promoLocationRowHTML).join("")
+          : `<div class="promo-location-not-found">No participating outlets found in the current store list.</div>`}
+      </div>
+    `;
+  }
+
+  panel.querySelectorAll("[data-promo-view-all]").forEach(btn=>{
+    btn.onclick=()=>renderPromoLocationPanel(promo,"all");
+  });
+}
+
+function openPromoViewer(id, locationContext="all"){
   const promo = promos.find(p=>p.id===id);
   if(!promo) return;
+
+  const context = ["all","nex","jurong"].includes(locationContext)
+    ? locationContext
+    : savedPromoContext(id);
 
   const viewer = document.getElementById("promoViewer");
   const img = document.getElementById("promoViewerImg");
   img.src = promo.image;
   img.alt = `${promo.brand} — ${promo.name}`;
+
+  renderPromoLocationPanel(promo, context);
+
   viewer.classList.add("open");
   viewer.setAttribute("aria-hidden","false");
   document.body.classList.add("viewer-open");
@@ -3641,13 +3980,17 @@ function closePromoViewer(){
 function bindPromoOpeners(){
   document.querySelectorAll("[data-promo-open]").forEach(el=>{
     el.onclick=(e)=>{
-      if(e.target.closest("button")) return;
-      openPromoViewer(el.dataset.promoOpen);
+      if(e.target.closest("button,a")) return;
+      const id = el.dataset.promoOpen;
+      const context = el.dataset.locationContext || savedPromoContext(id);
+      openPromoViewer(id, context);
     };
     el.onkeydown=(e)=>{
       if(e.key==="Enter" || e.key===" "){
         e.preventDefault();
-        openPromoViewer(el.dataset.promoOpen);
+        const id = el.dataset.promoOpen;
+        const context = el.dataset.locationContext || savedPromoContext(id);
+        openPromoViewer(id, context);
       }
     };
   });
@@ -3667,17 +4010,17 @@ function render(){
       const el = document.createElement("article");
       el.className="promo-shell";
       el.innerHTML = `
-        <div class="card-img-wrap promo-open" data-promo-open="${p.id}" role="button" tabindex="0" aria-label="View ${p.name} full screen"><img class="card-img" src="${p.image}" alt="${p.brand} — ${p.name}"></div>
+        <div class="card-img-wrap promo-open" data-promo-open="${p.id}" data-location-context="${state.location}" role="button" tabindex="0" aria-label="View ${p.name} full screen"><img class="card-img" src="${p.image}" alt="${p.brand} — ${p.name}"></div>
         <div class="card-meta">
           <div class="card-top card-top-single">
             <div class="loc outlet-line">${outletLabelForPromo(p)}</div>
           </div>
-          <button class="add ${isAdded?"added":""}" data-add="${p.id}">${isAdded?"✓ Saved":"+ Add to Save List"}</button>
+          <button class="add ${isAdded?"added":""}" data-add="${p.id}" data-save-context="${state.location}">${isAdded?"✓ Saved":"+ Add to Save List"}</button>
         </div>`;
       cards.appendChild(el);
     });
   }
-  document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>togglePlan(b.dataset.add));
+  document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>togglePlan(b.dataset.add,b.dataset.saveContext || state.location));
   bindPromoOpeners();
   renderPlanner();
 }
@@ -3691,7 +4034,7 @@ function showPlanToast(message="Saved to My Save List"){
   window.__planToastTimer = setTimeout(()=>toast.classList.remove("show"), 1500);
 }
 
-function togglePlan(id){
+function togglePlan(id, locationContext="all"){
   const p = promos.find(x=>x.id===id);
   if(!p) return;
 
@@ -3700,6 +4043,7 @@ function togglePlan(id){
   // Existing saved promo: keep the previous toggle behaviour.
   if(existingSlot >= 0){
     state.plan[existingSlot] = null;
+    if(state.planContexts) delete state.planContexts[id];
     savePlan();
     showPlanToast("Removed from My Save List");
     render();
@@ -3728,6 +4072,8 @@ function togglePlan(id){
   if(targetSlot < 0) return;
 
   state.plan[targetSlot] = id;
+  if(!state.planContexts) state.planContexts = {};
+  state.planContexts[id] = ["all","nex","jurong"].includes(locationContext) ? locationContext : "all";
   savePlan();
 
   const setNow = savedCountForSet(targetSet);
@@ -3834,7 +4180,7 @@ function renderPlanDrawer(){
       </article>`;
     }
 
-    return `<article class="plan-card-slot plan-promo-slot promo-open" data-promo-open="${p.id}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
+    return `<article class="plan-card-slot plan-promo-slot promo-open" data-promo-open="${p.id}" data-location-context="${savedPromoContext(p.id)}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
       <img src="${p.image}" alt="${p.brand} — ${p.name}">
       <div class="plan-slot-number">${index+1}</div>
       <button class="plan-remove-x" data-remove-slot="${absoluteSlot}" aria-label="Remove ${p.name}">✕</button>
@@ -3852,6 +4198,7 @@ function renderPlanDrawer(){
         promo ? `Remove "${promo.name}" from Set ${Math.floor(slotIndex/4)+1}?` : "Remove this promo from your Save List?",
         ()=>{
           state.plan[slotIndex] = null;
+          if(promoId && state.planContexts) delete state.planContexts[promoId];
           savePlan();
           render();
           renderPlanDrawer();
@@ -4100,9 +4447,9 @@ function renderSurpriseGrid(){
     }
 
     const isAdded = state.plan.includes(p.id);
-    return `<article class="surprise-slot promo-slot promo-open ${isAdded ? "selected" : ""}" data-promo-open="${p.id}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
+    return `<article class="surprise-slot promo-slot promo-open ${isAdded ? "selected" : ""}" data-promo-open="${p.id}" data-location-context="${state.surpriseLocation || "all"}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
       <img src="${p.image}" alt="${p.brand} — ${p.name}">
-      <button class="tile-add ${isAdded ? "selected" : ""}" data-surprise-add="${p.id}" aria-label="${isAdded ? "Remove from" : "Add to"} My Save List">
+      <button class="tile-add ${isAdded ? "selected" : ""}" data-surprise-add="${p.id}" data-save-context="${state.surpriseLocation || "all"}" aria-label="${isAdded ? "Remove from" : "Add to"} My Save List">
         ${isAdded ? "✓" : "+"}
       </button>
       ${isAdded ? `<div class="tile-saved">Added</div>` : ``}
@@ -4111,7 +4458,7 @@ function renderSurpriseGrid(){
 
   document.querySelectorAll("[data-surprise-add]").forEach(b=>b.onclick=(e)=>{
     e.stopPropagation();
-    togglePlan(b.dataset.surpriseAdd);
+    togglePlan(b.dataset.surpriseAdd,b.dataset.saveContext || state.surpriseLocation || "all");
   });
   bindPromoOpeners();
 }
