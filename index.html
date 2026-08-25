@@ -4798,6 +4798,83 @@ body.viewer-open{
   }
 }
 
+
+/* --- V73 full-screen save uses the same heart state as promo cards --- */
+.promo-viewer-save{
+  position:absolute !important;
+  right:12px !important;
+  bottom:12px !important;
+  z-index:20 !important;
+  width:54px !important;
+  min-width:54px !important;
+  height:54px !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  display:grid !important;
+  place-items:center !important;
+  cursor:pointer !important;
+}
+
+.promo-viewer-heart{
+  grid-area:1/1 !important;
+  display:block !important;
+  font-size:50px !important;
+  line-height:1 !important;
+  color:#b8b1ad !important;
+  filter:drop-shadow(0 3px 5px rgba(0,0,0,.24));
+}
+
+.promo-viewer-tick{
+  grid-area:1/1 !important;
+  display:block !important;
+  font-size:20px !important;
+  line-height:1 !important;
+  font-weight:1000 !important;
+  color:#fff !important;
+  opacity:0 !important;
+  transform:translateY(-1px) !important;
+  pointer-events:none !important;
+}
+
+.promo-viewer-save.added{
+  min-width:54px !important;
+  width:54px !important;
+  padding:0 !important;
+  background:transparent !important;
+}
+
+.promo-viewer-save.added .promo-viewer-heart{
+  color:#df6235 !important;
+}
+
+.promo-viewer-save.added .promo-viewer-tick{
+  opacity:1 !important;
+}
+
+.promo-viewer-save-icon,
+.promo-viewer-save-label{
+  display:none !important;
+}
+
+@media(max-width:620px){
+  .promo-viewer-save{
+    right:10px !important;
+    bottom:10px !important;
+    width:52px !important;
+    min-width:52px !important;
+    height:52px !important;
+  }
+  .promo-viewer-heart{
+    font-size:47px !important;
+  }
+  .promo-viewer-tick{
+    font-size:19px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -5051,8 +5128,8 @@ body.viewer-open{
         <img id="promoViewerImg" alt="" draggable="false">
         <button class="promo-viewer-close" id="promoViewerClose" aria-label="Close promo">✕</button>
         <button class="promo-viewer-save" id="promoViewerSave" type="button" aria-label="Add promo to My Save List">
-          <span class="promo-viewer-save-icon" id="promoViewerSaveIcon">+</span>
-          <span class="promo-viewer-save-label" id="promoViewerSaveLabel"></span>
+          <span class="promo-viewer-heart" aria-hidden="true">♥</span>
+          <span class="promo-viewer-tick" aria-hidden="true">✓</span>
         </button>
       </div>
       <div class="promo-location-panel" id="promoLocationPanel"></div>
@@ -5375,14 +5452,10 @@ let currentPromoViewerContext = "all";
 
 function refreshPromoViewerSaveState(){
   const btn = document.getElementById("promoViewerSave");
-  const icon = document.getElementById("promoViewerSaveIcon");
-  const label = document.getElementById("promoViewerSaveLabel");
-  if(!btn || !icon || !label || !currentPromoViewerId) return;
+  if(!btn || !currentPromoViewerId) return;
 
   const isAdded = state.plan.includes(currentPromoViewerId);
   btn.classList.toggle("added",isAdded);
-  icon.textContent = isAdded ? "✓" : "+";
-  label.textContent = isAdded ? "Added" : "";
   btn.setAttribute("aria-label",isAdded ? "Remove promo from My Save List" : "Add promo to My Save List");
 }
 
@@ -5420,7 +5493,12 @@ function closePromoViewer(){
 function bindPromoOpeners(){
   document.querySelectorAll("[data-promo-open]").forEach(el=>{
     el.onclick=(e)=>{
-      if(e.target.closest("button,a")) return;
+      // Ignore nested action buttons inside clickable artwork,
+      // but allow an element that is itself the Enlarge button.
+      const nestedAction = e.target.closest("button,a");
+      if(nestedAction && nestedAction !== el) return;
+
+      e.stopPropagation();
       const id = el.dataset.promoOpen;
       const context = el.dataset.locationContext || savedPromoContext(id);
       openPromoViewer(id, context);
