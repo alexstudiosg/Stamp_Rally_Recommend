@@ -3405,6 +3405,87 @@ body.viewer-open{
   }
 }
 
+
+/* --- V56 lock enlarged promo horizontally + store-location hint --- */
+.promo-viewer,
+.promo-viewer-stage,
+.promo-viewer-content{
+  overflow-x:hidden !important;
+  overscroll-behavior-x:none !important;
+}
+
+.promo-viewer-stage{
+  touch-action:pan-y !important;
+}
+
+.promo-viewer-content{
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+
+.promo-viewer-frame{
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+
+.promo-viewer-frame img{
+  max-width:100% !important;
+  -webkit-user-drag:none;
+  user-select:none;
+  -webkit-user-select:none;
+  touch-action:pan-y !important;
+}
+
+.promo-location-panel{
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+
+.tile-location-hint{
+  position:absolute;
+  right:52px;
+  bottom:9px;
+  z-index:2;
+  max-width:112px;
+  padding:5px 7px;
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  color:#402217;
+  box-shadow:0 4px 12px rgba(0,0,0,.22);
+  font-size:8px;
+  line-height:1.05;
+  font-weight:1000;
+  text-align:center;
+  pointer-events:none;
+}
+
+.tile-saved{
+  top:8px !important;
+  bottom:auto !important;
+}
+
+@media(max-width:620px){
+  .promo-viewer-stage{
+    overflow-x:hidden !important;
+  }
+
+  .promo-viewer-content{
+    width:calc(100% - 2px) !important;
+    max-width:100% !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+
+  .tile-location-hint{
+    right:48px;
+    bottom:9px;
+    max-width:100px;
+    padding:4px 6px;
+    font-size:7px;
+    line-height:1.05;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3652,7 +3733,7 @@ body.viewer-open{
   <div class="promo-viewer-stage" id="promoViewerStage">
     <div class="promo-viewer-content">
       <div class="promo-viewer-frame">
-        <img id="promoViewerImg" alt="">
+        <img id="promoViewerImg" alt="" draggable="false">
         <button class="promo-viewer-close" id="promoViewerClose" aria-label="Close promo">✕</button>
       </div>
       <div class="promo-location-panel" id="promoLocationPanel"></div>
@@ -4449,6 +4530,7 @@ function renderSurpriseGrid(){
     const isAdded = state.plan.includes(p.id);
     return `<article class="surprise-slot promo-slot promo-open ${isAdded ? "selected" : ""}" data-promo-open="${p.id}" data-location-context="${state.surpriseLocation || "all"}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
       <img src="${p.image}" alt="${p.brand} — ${p.name}">
+      <div class="tile-location-hint">Tap for store location</div>
       <button class="tile-add ${isAdded ? "selected" : ""}" data-surprise-add="${p.id}" data-save-context="${state.surpriseLocation || "all"}" aria-label="${isAdded ? "Remove from" : "Add to"} My Save List">
         ${isAdded ? "✓" : "+"}
       </button>
