@@ -2568,6 +2568,40 @@ body.viewer-open{
   }
 }
 
+
+/* --- V50 compact outlet wording for both auto-detected and manual status --- */
+.shake-location-status{
+  max-width:165px !important;
+}
+
+.shake-status-line1{
+  font-size:11px !important;
+  line-height:1.02 !important;
+  font-weight:900 !important;
+}
+
+.shake-status-line2{
+  margin-top:2px !important;
+  font-size:12px !important;
+  line-height:1.02 !important;
+  font-weight:1000 !important;
+}
+
+@media(max-width:620px){
+  .shake-location-status{
+    max-width:138px !important;
+  }
+  .shake-status-line1{
+    font-size:9px !important;
+    line-height:1.02 !important;
+  }
+  .shake-status-line2{
+    margin-top:1px !important;
+    font-size:10.5px !important;
+    line-height:1.02 !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3244,9 +3278,13 @@ function distanceKm(lat1, lng1, lat2, lng2){
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
 
-function formatShakeLocationStatus(location){
-  const place = location === "jurong" ? "Jurong Point" : "NEX";
-  return `<span class="shake-status-line1">Showing promos at</span><span class="shake-status-line2">&JOY Food Street ${place}</span>`;
+function joyOutletShortName(location){
+  return location === "jurong" ? "&JOY Jurong Point" : "&JOY NEX";
+}
+
+function formatShakeLocationStatus(location, mode="showing"){
+  const prefix = mode === "nearest" ? "Nearest detected" : "Showing promos at";
+  return `<span class="shake-status-line1">${prefix}</span><span class="shake-status-line2">${joyOutletShortName(location)}</span>`;
 }
 
 function updateShakeLocationUI(statusText){
@@ -3257,15 +3295,17 @@ function updateShakeLocationUI(statusText){
   const status = document.getElementById("shakeLocationStatus");
   if(status){
     if(statusText){
-      if(statusText.includes("Showing promos at") && state.surpriseLocation){
-        status.innerHTML = formatShakeLocationStatus(state.surpriseLocation);
+      if(statusText.includes("Nearest detected") && state.surpriseLocation){
+        status.innerHTML = formatShakeLocationStatus(state.surpriseLocation, "nearest");
+      }else if(statusText.includes("Showing promos at") && state.surpriseLocation){
+        status.innerHTML = formatShakeLocationStatus(state.surpriseLocation, "showing");
       }else{
         status.textContent = statusText;
       }
     }else if(state.surpriseLocation){
-      status.innerHTML = formatShakeLocationStatus(state.surpriseLocation);
+      status.innerHTML = formatShakeLocationStatus(state.surpriseLocation, "showing");
     }else{
-      status.textContent = "Choose your &JOY Food Street";
+      status.textContent = "Choose your &JOY outlet";
     }
   }
 }
@@ -3287,7 +3327,7 @@ function detectNearestJoyLocation(){
     if(!navigator.geolocation || !window.isSecureContext){
       setSurpriseLocation(
         fallback,
-        "Location detection unavailable — choose NEX or Jurong Point"
+        "Location unavailable — choose NEX or Jurong Point"
       );
       state.locationDetectionAttempted = true;
       resolve(fallback);
@@ -3310,10 +3350,7 @@ function detectNearestJoyLocation(){
         );
 
         const nearest = nexDistance <= jurongDistance ? "nex" : "jurong";
-        setSurpriseLocation(
-          nearest,
-          `Nearest detected: &JOY Food Street ${JOY_LOCATIONS[nearest].label}`
-        );
+        setSurpriseLocation(nearest, `Nearest detected: ${joyOutletShortName(nearest)}`);
         state.locationDetectionAttempted = true;
         resolve(nearest);
       },
@@ -3526,7 +3563,7 @@ document.getElementById("again").onclick=surpriseFour;
 document.querySelectorAll("[data-shake-location]").forEach(btn=>{
   btn.onclick=()=>{
     const location = btn.dataset.shakeLocation;
-    setSurpriseLocation(location, `Showing promos at &JOY Food Street ${JOY_LOCATIONS[location].label}`);
+    setSurpriseLocation(location, `Showing promos at ${joyOutletShortName(location)}`);
 
     if(document.getElementById("surpriseOverlay").classList.contains("open")){
       surpriseFour();
