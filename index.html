@@ -3531,6 +3531,39 @@ body.viewer-open{
   }
 }
 
+
+/* --- V59 standardise Store Location callout across Choose + Surprise --- */
+.card-img-wrap{
+  position:relative !important;
+}
+
+.tile-location-hint{
+  max-width:none !important;
+  padding:6px 10px !important;
+  font-size:10.5px !important;
+  line-height:1 !important;
+  letter-spacing:.01em;
+  white-space:nowrap;
+}
+
+.card-location-hint{
+  right:20px !important;
+  bottom:12px !important;
+}
+
+@media(max-width:620px){
+  .tile-location-hint{
+    padding:5px 8px !important;
+    font-size:9.5px !important;
+    line-height:1 !important;
+  }
+
+  .card-location-hint{
+    right:18px !important;
+    bottom:10px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -4136,7 +4169,10 @@ function render(){
       const el = document.createElement("article");
       el.className="promo-shell";
       el.innerHTML = `
-        <div class="card-img-wrap promo-open" data-promo-open="${p.id}" data-location-context="${state.location}" role="button" tabindex="0" aria-label="View ${p.name} full screen"><img class="card-img" src="${p.image}" alt="${p.brand} — ${p.name}"></div>
+        <div class="card-img-wrap promo-open" data-promo-open="${p.id}" data-location-context="${state.location}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
+          <img class="card-img" src="${p.image}" alt="${p.brand} — ${p.name}">
+          <div class="tile-location-hint card-location-hint">Store Location</div>
+        </div>
         <div class="card-meta">
           <div class="card-top card-top-single">
             <div class="loc outlet-line">${outletLabelForPromo(p)}</div>
@@ -4575,7 +4611,7 @@ function renderSurpriseGrid(){
     const isAdded = state.plan.includes(p.id);
     return `<article class="surprise-slot promo-slot promo-open ${isAdded ? "selected" : ""}" data-promo-open="${p.id}" data-location-context="${state.surpriseLocation || "all"}" role="button" tabindex="0" aria-label="View ${p.name} full screen">
       <img src="${p.image}" alt="${p.brand} — ${p.name}">
-      <div class="tile-location-hint">Tap for store location</div>
+      <div class="tile-location-hint">Store Location</div>
       <button class="tile-add ${isAdded ? "selected" : ""}" data-surprise-add="${p.id}" data-save-context="${state.surpriseLocation || "all"}" aria-label="${isAdded ? "Remove from" : "Add to"} My Save List">
         ${isAdded ? "✓" : "+"}
       </button>
@@ -4812,8 +4848,55 @@ function storeDistanceKm(store){
   return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
 }
 
+function storeMapDestination(store){
+  const rawAddress = String(store.address || "").trim();
+  const mallName = String(store.mall || "").trim();
+
+  if(!rawAddress){
+    return mallName ? `${mallName}, Singapore` : "Singapore";
+  }
+
+  const parts = rawAddress
+    .split(",")
+    .map(part=>part.trim())
+    .filter(Boolean);
+
+  const street = parts[0] || "";
+  const singaporePart = parts.find(part=>/^Singapore\s+\d{6}$/i.test(part)) || "";
+
+  // Prefer the actual building / mall name found in the address.
+  // This avoids routing to a tenant that happens to share the same coordinates.
+  const unitIndex = parts.findIndex(part=>part.startsWith("#"));
+  let building = "";
+
+  if(unitIndex >= 0){
+    for(let i=unitIndex+1;i<parts.length;i++){
+      const candidate = parts[i];
+      if(/^Singapore\s+\d{6}$/i.test(candidate)) continue;
+      building = candidate.replace(/\s*\([^)]*\)\s*/g," ").trim();
+      if(building) break;
+    }
+  }
+
+  if(!building) building = mallName;
+
+  const destinationParts = [];
+  if(building) destinationParts.push(building);
+  if(street && !destinationParts.some(p=>p.toLowerCase()===street.toLowerCase())){
+    destinationParts.push(street);
+  }
+  if(singaporePart) destinationParts.push(singaporePart);
+  else destinationParts.push("Singapore");
+
+  return destinationParts.join(", ");
+}
+
 function storeDirectionsURL(store){
-  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(store.lat + "," + store.lng)}`;
+  // Send customers to the mall / building entrance rather than the outlet's
+  // raw map coordinate. Unit number remains visible in the PWA for navigation
+  // after the customer reaches the mall.
+  const destination = storeMapDestination(store);
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
 }
 
 function formatStoreDistance(km){
