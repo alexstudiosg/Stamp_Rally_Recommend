@@ -2602,6 +2602,92 @@ body.viewer-open{
   }
 }
 
+
+/* --- V51 left-align outlet status and keep it closer to the toggle --- */
+.shake-location-row{
+  justify-content:flex-start !important;
+  gap:10px !important;
+}
+
+.shake-location-status{
+  flex:0 0 auto !important;
+  text-align:left !important;
+  align-self:center !important;
+  margin-left:0 !important;
+}
+
+.shake-status-line1,
+.shake-status-line2{
+  text-align:left !important;
+}
+
+@media(max-width:620px){
+  .shake-location-row{
+    justify-content:flex-start !important;
+    gap:8px !important;
+  }
+  .shake-location-status{
+    text-align:left !important;
+    align-self:center !important;
+  }
+}
+
+
+/* --- V52 homepage My Save List matches the full width of the 2-button row --- */
+.hero-save-list-btn{
+  width:100% !important;
+  max-width:none !important;
+  box-sizing:border-box;
+}
+
+@media(max-width:620px){
+  .hero-save-list-btn{
+    width:100% !important;
+    max-width:none !important;
+  }
+}
+
+
+/* --- V53 add Anywhere option for Surprise / Shake --- */
+.shake-location-toggle{
+  flex:0 0 360px !important;
+  width:360px !important;
+  grid-template-columns:1.08fr .88fr 1.28fr !important;
+}
+
+.shake-location-btn{
+  white-space:nowrap;
+}
+
+.shake-location-status{
+  max-width:150px !important;
+}
+
+@media(max-width:620px){
+  .shake-location-row{
+    gap:7px !important;
+  }
+  .shake-location-toggle{
+    flex:0 0 220px !important;
+    width:220px !important;
+    grid-template-columns:1.04fr .78fr 1.18fr !important;
+  }
+  .shake-location-btn{
+    font-size:8.5px !important;
+    padding:5px 6px !important;
+  }
+  .shake-location-status{
+    max-width:112px !important;
+  }
+}
+
+@media(max-width:620px) and (max-height:720px){
+  .shake-location-toggle{
+    flex-basis:214px !important;
+    width:214px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2753,6 +2839,7 @@ body.viewer-open{
 
         <div class="shake-location-row">
           <div class="shake-location-toggle" id="shakeLocationToggle" role="group" aria-label="Choose &JOY Food Street location">
+            <button type="button" class="shake-location-btn" data-shake-location="all">Anywhere</button>
             <button type="button" class="shake-location-btn" data-shake-location="nex">NEX</button>
             <button type="button" class="shake-location-btn" data-shake-location="jurong">Jurong Point</button>
           </div>
@@ -3279,6 +3366,7 @@ function distanceKm(lat1, lng1, lat2, lng2){
 }
 
 function joyOutletShortName(location){
+  if(location === "all") return "Any &JOY outlet";
   return location === "jurong" ? "&JOY Jurong Point" : "&JOY NEX";
 }
 
@@ -3311,7 +3399,7 @@ function updateShakeLocationUI(statusText){
 }
 
 function setSurpriseLocation(location, statusText){
-  if(location !== "nex" && location !== "jurong") return;
+  if(!["all","nex","jurong"].includes(location)) return;
   state.surpriseLocation = location;
   updateShakeLocationUI(statusText);
 }
@@ -3381,6 +3469,7 @@ function surprisePromosForSelectedOutlet(){
 
   // IMPORTANT: Surprise/Shake ignores all preference filters.
   // It randomises across every promo available at the selected outlet.
+  if(location === "all") return promos.slice();
   return promos.filter(p=>p.locations.includes(location));
 }
 
