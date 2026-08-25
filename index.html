@@ -2473,6 +2473,101 @@ body.viewer-open{
   }
 }
 
+
+/* --- V48 final readability tweaks for surprise header --- */
+.shake-location-status{
+  white-space:normal !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+  max-width:170px;
+}
+
+.shake-status-line1,
+.shake-status-line2{
+  display:block;
+}
+.shake-status-line1{
+  font-size:10px;
+  line-height:1.05;
+  font-weight:850;
+}
+.shake-status-line2{
+  margin-top:2px;
+  font-size:10px;
+  line-height:1.1;
+  font-weight:1000;
+}
+
+.surprise-copy-wrap-centered .surprise-line:first-child{
+  font-size:15px !important;
+  line-height:1.15 !important;
+  font-weight:1000 !important;
+}
+.surprise-copy-wrap-centered .surprise-line:first-child .inline-plus{
+  vertical-align:middle;
+}
+.surprise-copy-wrap-centered .surprise-line:last-child{
+  font-size:11px !important;
+  line-height:1.15 !important;
+}
+
+@media(max-width:620px){
+  .shake-location-status{
+    max-width:138px;
+  }
+  .shake-status-line1{
+    font-size:8.5px;
+    line-height:1.05;
+  }
+  .shake-status-line2{
+    font-size:8.5px;
+    line-height:1.08;
+    margin-top:1px;
+  }
+
+  .surprise-copy-wrap-centered .surprise-line:first-child{
+    font-size:12px !important;
+    line-height:1.15 !important;
+  }
+  .surprise-copy-wrap-centered .surprise-line:last-child{
+    font-size:10px !important;
+    line-height:1.15 !important;
+  }
+}
+
+
+/* --- V49 increase "Showing promos at..." readability --- */
+.shake-location-status{
+  max-width:190px !important;
+}
+
+.shake-status-line1{
+  font-size:12px !important;
+  line-height:1.08 !important;
+  font-weight:900 !important;
+}
+
+.shake-status-line2{
+  margin-top:2px !important;
+  font-size:12px !important;
+  line-height:1.08 !important;
+  font-weight:1000 !important;
+}
+
+@media(max-width:620px){
+  .shake-location-status{
+    max-width:150px !important;
+  }
+  .shake-status-line1{
+    font-size:10.5px !important;
+    line-height:1.08 !important;
+  }
+  .shake-status-line2{
+    font-size:10.5px !important;
+    line-height:1.08 !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3149,6 +3244,11 @@ function distanceKm(lat1, lng1, lat2, lng2){
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
 
+function formatShakeLocationStatus(location){
+  const place = location === "jurong" ? "Jurong Point" : "NEX";
+  return `<span class="shake-status-line1">Showing promos at</span><span class="shake-status-line2">&JOY Food Street ${place}</span>`;
+}
+
 function updateShakeLocationUI(statusText){
   document.querySelectorAll("[data-shake-location]").forEach(btn=>{
     btn.classList.toggle("active", btn.dataset.shakeLocation === state.surpriseLocation);
@@ -3157,9 +3257,13 @@ function updateShakeLocationUI(statusText){
   const status = document.getElementById("shakeLocationStatus");
   if(status){
     if(statusText){
-      status.textContent = statusText;
+      if(statusText.includes("Showing promos at") && state.surpriseLocation){
+        status.innerHTML = formatShakeLocationStatus(state.surpriseLocation);
+      }else{
+        status.textContent = statusText;
+      }
     }else if(state.surpriseLocation){
-      status.textContent = `Showing promos at &JOY Food Street ${JOY_LOCATIONS[state.surpriseLocation].label}`;
+      status.innerHTML = formatShakeLocationStatus(state.surpriseLocation);
     }else{
       status.textContent = "Choose your &JOY Food Street";
     }
@@ -3422,10 +3526,7 @@ document.getElementById("again").onclick=surpriseFour;
 document.querySelectorAll("[data-shake-location]").forEach(btn=>{
   btn.onclick=()=>{
     const location = btn.dataset.shakeLocation;
-    setSurpriseLocation(
-      location,
-      `Showing promos at &JOY Food Street ${JOY_LOCATIONS[location].label}`
-    );
+    setSurpriseLocation(location, `Showing promos at &JOY Food Street ${JOY_LOCATIONS[location].label}`);
 
     if(document.getElementById("surpriseOverlay").classList.contains("open")){
       surpriseFour();
