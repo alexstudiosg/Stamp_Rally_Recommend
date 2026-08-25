@@ -2384,6 +2384,95 @@ body.viewer-open{
   }
 }
 
+
+/* --- V47 refine surprise header layout --- */
+.surprise-instruction{
+  padding:14px 16px 12px !important;
+}
+
+.surprise-title-block-centered{
+  padding-top:0 !important;
+}
+.surprise-title{
+  text-align:center !important;
+  margin:0 auto !important;
+}
+
+.shake-location-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:10px;
+}
+
+.shake-location-toggle{
+  flex:0 0 290px;
+  width:290px !important;
+  margin:0 !important;
+}
+
+.shake-location-status{
+  flex:1 1 auto;
+  min-height:auto !important;
+  margin:0 !important;
+  text-align:right !important;
+  font-size:11px !important;
+  line-height:1.15 !important;
+}
+
+.surprise-copy-wrap-centered{
+  margin-top:10px !important;
+}
+.surprise-copy-wrap-centered .surprise-line{
+  text-align:center !important;
+}
+
+@media(max-width:620px){
+  .surprise-instruction{
+    padding:12px 12px 10px !important;
+  }
+  .surprise-title{
+    font-size:17px !important;
+    text-align:center !important;
+  }
+  .shake-location-row{
+    gap:8px;
+    margin-top:8px;
+    align-items:center;
+  }
+  .shake-location-toggle{
+    flex:0 0 172px;
+    width:172px !important;
+  }
+  .shake-location-status{
+    font-size:8px !important;
+    line-height:1.12 !important;
+    text-align:right !important;
+  }
+  .surprise-copy-wrap-centered{
+    margin-top:8px !important;
+  }
+  .surprise-copy-wrap-centered .surprise-line{
+    text-align:center !important;
+    font-size:10px !important;
+    line-height:1.18 !important;
+  }
+}
+
+@media(max-width:620px) and (max-height:720px){
+  .shake-location-row{
+    margin-top:7px;
+  }
+  .shake-location-toggle{
+    flex-basis:166px;
+    width:166px !important;
+  }
+  .shake-location-status{
+    font-size:7.5px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2529,22 +2618,19 @@ body.viewer-open{
 
     <div class="surprise-scroll-area">
       <div class="surprise-instruction">
-        <div class="surprise-topbar">
-          <div class="surprise-title-block">
-            <div class="surprise-title">I want to try these!</div>
-          </div>
-
-          <div class="shake-location-card">
-            <div class="shake-location-mini-label">Pick location</div>
-            <div class="shake-location-toggle" id="shakeLocationToggle" role="group" aria-label="Choose &JOY Food Street location">
-              <button type="button" class="shake-location-btn" data-shake-location="nex">NEX</button>
-              <button type="button" class="shake-location-btn" data-shake-location="jurong">Jurong Point</button>
-            </div>
-            <div class="shake-location-status" id="shakeLocationStatus">Choose your &JOY Food Street</div>
-          </div>
+        <div class="surprise-title-block surprise-title-block-centered">
+          <div class="surprise-title">I want to try these!</div>
         </div>
 
-        <div class="surprise-copy-wrap">
+        <div class="shake-location-row">
+          <div class="shake-location-toggle" id="shakeLocationToggle" role="group" aria-label="Choose &JOY Food Street location">
+            <button type="button" class="shake-location-btn" data-shake-location="nex">NEX</button>
+            <button type="button" class="shake-location-btn" data-shake-location="jurong">Jurong Point</button>
+          </div>
+          <div class="shake-location-status" id="shakeLocationStatus">Choose your &JOY Food Street</div>
+        </div>
+
+        <div class="surprise-copy-wrap surprise-copy-wrap-centered">
           <div class="surprise-line">Tap <span class="inline-plus">+</span> to save your picks.</div>
           <div class="surprise-line">Shake again to see the next 4 items.</div>
         </div>
