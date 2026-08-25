@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f16614">
-<title>&Rewards — August Stamp Guide Prototype V20</title>
+<title>&Rewards — August Stamp Guide Prototype V22</title>
 <style>
 :root{
   --orange:#ff641d;
@@ -979,6 +979,58 @@ h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.035em;margin-bottom:4px}
   .surprise-instruction span{font-size:11px}
 }
 
+
+/* --- V21 surprise instruction refinement --- */
+.surprise-instruction{
+  padding:14px 14px 12px;
+}
+.surprise-instruction strong{
+  display:block;
+  color:#2f1a11;
+  font-size:20px;
+  line-height:1.15;
+  margin-bottom:8px;
+  font-weight:1000;
+}
+.surprise-instruction span{
+  display:block;
+  color:#6a4d3f;
+  font-size:13px;
+  font-weight:800;
+  line-height:1.45;
+}
+.inline-plus{
+  display:inline-grid;
+  place-items:center;
+  width:22px;
+  height:22px;
+  margin:0 2px;
+  border-radius:50%;
+  background:#25150f;
+  color:#fff;
+  font-size:15px;
+  font-weight:1000;
+  line-height:1;
+  vertical-align:middle;
+}
+@media(max-width:620px){
+  .surprise-instruction{
+    padding:12px 10px 10px;
+  }
+  .surprise-instruction strong{
+    font-size:18px;
+    margin-bottom:6px;
+  }
+  .surprise-instruction span{
+    font-size:12px;
+  }
+  .inline-plus{
+    width:20px;
+    height:20px;
+    font-size:14px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1011,7 +1063,7 @@ h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.035em;margin-bottom:4px}
     </div>
     <section class="cards" id="cards"></section>
   </section>
-  <div class="footer">Prototype v20 · Customer-facing Stamp Guide</div>
+  <div class="footer">Prototype v22 · Customer-facing Stamp Guide</div>
 </div>
 
 <div class="planner" id="plannerBar">
@@ -1070,7 +1122,7 @@ h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.035em;margin-bottom:4px}
         <span class="step-no">2</span>
         <div>
           <div class="finder-label">What are you looking for?</div>
-          <div class="finder-hint">Pick any that matter to you. This is optional.</div>
+          <div class="finder-hint">Choose one option. This is optional.</div>
         </div>
       </div>
 
@@ -1098,7 +1150,7 @@ h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.035em;margin-bottom:4px}
   <div class="surprise-stage">
     <button class="surprise-x" id="closeSurprise" aria-label="Close">✕</button>
 
-    <div class="surprise-instruction"><strong>I want to try these!</strong><br><span>Tap [+] to save your picks.</span></div>
+    <div class="surprise-instruction"><strong>I want to try these!</strong><br><span>Tap <span class="inline-plus">+</span> to save your picks. Shake again to see the next 4 items.</span></div>
     <div class="surprise-grid fixed-four-grid" id="surpriseGrid"></div>
 
     <div class="surprise-bottom">
@@ -1448,8 +1500,19 @@ document.querySelectorAll("#locations .pill").forEach(btn=>{
 document.querySelectorAll("#needs .pill").forEach(btn=>{
   btn.onclick=()=>{
     const token = btn.dataset.token;
-    if(state.tokens.has(token)){ state.tokens.delete(token); btn.classList.remove("active"); }
-    else{ state.tokens.add(token); btn.classList.add("active"); }
+
+    // Single-select behaviour: tapping the active option clears it;
+    // tapping another option replaces the previous selection.
+    if(state.tokens.has(token)){
+      state.tokens.clear();
+      document.querySelectorAll("#needs .pill").forEach(x=>x.classList.remove("active"));
+      return;
+    }
+
+    state.tokens.clear();
+    document.querySelectorAll("#needs .pill").forEach(x=>x.classList.remove("active"));
+    state.tokens.add(token);
+    btn.classList.add("active");
   };
 });
 
